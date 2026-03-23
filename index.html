@@ -47,11 +47,12 @@
 
 		.app {
 			width: min(100%, var(--max-width));
+			min-height: calc(100dvh - max(18px, env(safe-area-inset-top)) - max(28px, env(safe-area-inset-bottom)));
 			margin: 0 auto;
 			position: relative;
 			isolation: isolate;
 			display: grid;
-			gap: 16px;
+			gap: 12px;
 		}
 
 		.panel {
@@ -1493,56 +1494,71 @@
 			color: rgba(247, 241, 226, 0.5);
 			font-size: 12px;
 			line-height: 1.7;
-			padding: 2px 10px 10px;
+			padding: 0 10px 6px;
 		}
 
 		.screen-view {
 			display: grid;
-			gap: 18px;
+			gap: 10px;
+			min-height: 0;
 		}
 
 		.screen-view.hidden {
 			display: none;
 		}
 
-		.ritual-progress-panel {
-			padding: 20px;
+		#tarotScreen {
+			grid-template-rows: auto auto 1fr auto;
+			overflow: hidden;
 		}
 
-		.ritual-progress-intro {
-			display: grid;
+		.ritual-flow-panel,
+		.tarot-topbar {
+			padding: 10px 14px;
+		}
+
+		.tarot-topbar-row {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 10px;
+		}
+
+		.tarot-topbar-main,
+		.tarot-topbar-actions {
+			display: flex;
+			align-items: center;
 			gap: 8px;
+			min-width: 0;
 		}
 
-		.ritual-progress-intro p,
-		.ritual-step-header p {
-			margin: 0;
-			color: var(--ink-soft);
-			font-size: 14px;
-			line-height: 1.8;
+		.tarot-topbar-main strong {
+			font-size: 13px;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: rgba(247, 241, 226, 0.86);
 		}
 
 		.ritual-progress-nav {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-			gap: 10px;
-			margin-top: 18px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			overflow-x: auto;
+			scrollbar-width: none;
+		}
+
+		.ritual-progress-nav::-webkit-scrollbar {
+			display: none;
 		}
 
 		.ritual-progress-button {
-			padding: 14px 16px;
+			flex: none;
+			padding: 8px 10px;
 			border-radius: 18px;
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			background: rgba(255, 255, 255, 0.04);
 			color: var(--ink);
-			text-align: left;
-			cursor: pointer;
-			transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-		}
-
-		.ritual-progress-button:hover {
-			transform: translateY(-2px);
-			border-color: rgba(255, 206, 114, 0.32);
+			white-space: nowrap;
 		}
 
 		.ritual-progress-button.active {
@@ -1559,25 +1575,23 @@
 			opacity: 0.54;
 		}
 
-		.ritual-progress-button strong,
-		.ritual-progress-button span {
-			display: block;
-		}
-
 		.ritual-progress-button strong {
-			font-size: 14px;
+			font-size: 12px;
 		}
 
 		.ritual-progress-button span {
-			margin-top: 6px;
-			font-size: 12px;
-			line-height: 1.6;
-			color: rgba(247, 241, 226, 0.68);
+			display: none;
+		}
+
+		.ritual-step-shell {
+			min-height: 0;
+			overflow: hidden;
 		}
 
 		.ritual-step-view {
-			display: grid;
-			gap: 18px;
+			height: 100%;
+			overflow: auto;
+			padding-right: 2px;
 		}
 
 		.ritual-step-header {
@@ -1585,6 +1599,17 @@
 			align-items: flex-start;
 			justify-content: space-between;
 			gap: 16px;
+		}
+
+		.ritual-step-header p {
+			margin: 0;
+			color: var(--ink-soft);
+			font-size: 14px;
+			line-height: 1.75;
+		}
+
+		.step-actions-inline {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 
 		.screen-nav {
@@ -1771,14 +1796,15 @@
 
 		@media (max-width: 480px) {
 			.ritual-step-header,
+			.tarot-topbar-row,
 			.screen-nav,
 			.screen-nav-actions {
 				flex-direction: column;
 				align-items: stretch;
 			}
 
-			.ritual-progress-nav {
-				grid-template-columns: 1fr;
+			.tarot-topbar-actions {
+				justify-content: space-between;
 			}
 
 			.recharge-layout {
@@ -1805,9 +1831,14 @@
 
 			.api-grid,
 			.details-grid,
-			.actions,
 			.result-switcher {
 				grid-template-columns: 1fr;
+			}
+
+			.actions.step-actions-inline,
+			.actions.wheel-actions,
+			.actions.reveal-actions {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
 			}
 
 			.candidate-row {
@@ -1949,45 +1980,53 @@
 		</div>
 
 		<div class="screen-view" id="tarotScreen">
-			<div class="screen-nav">
-				<div>
-					<div class="section-kicker">Tarot Flow</div>
-					<h2 class="screen-title">占卜界面</h2>
+			<section class="panel tarot-topbar">
+				<div class="tarot-topbar-row">
+					<div class="tarot-topbar-main">
+						<strong>占卜界面</strong>
+						<span class="status-pill" id="tarotUserBadge">未登录</span>
+					</div>
+					<div class="tarot-topbar-actions">
+						<button class="ghost-button music-toggle" id="musicToggleButton" type="button" aria-label="切换氛围背景音">
+							<span class="music-toggle-label" id="musicToggleLabel">开启氛围音</span>
+							<span class="status-pill" id="musicToggleState">静音</span>
+						</button>
+						<button class="ghost-button" id="openAccountButton" type="button">个人账户</button>
+					</div>
 				</div>
-				<div class="screen-nav-actions">
-					<span class="status-pill" id="tarotUserBadge">未登录</span>
-					<button class="ghost-button music-toggle" id="musicToggleButton" type="button" aria-label="切换氛围背景音">
-						<span class="music-toggle-label" id="musicToggleLabel">开启氛围音</span>
-						<span class="status-pill" id="musicToggleState">静音</span>
-					</button>
-					<button class="ghost-button" id="openAccountButton" type="button">个人账户</button>
-				</div>
-			</div>
+			</section>
 
-			<section class="panel hero">
-			<div class="eyebrow">Tarot Flow · Mobile Ritual</div>
-			<h1>塔罗牌占卜 · 命运牌阵解读</h1>
-			<p>✨ 今夜的牌阵，将替你照见未说出口的答案 🔮</p>
-		</section>
-
-			<section class="panel ritual-progress-panel">
-				<div class="ritual-progress-intro">
-					<div class="section-kicker">Ritual Steps</div>
-					<h3 style="font-size: 30px; margin: 0;">按步骤完成这次占卜</h3>
-					<p>首页默认先显示占卜流程。只有当你真正点击需要身份或积分的动作时，才会跳到登录 / 注册页面。</p>
-				</div>
+			<section class="panel ritual-flow-panel">
 				<div class="ritual-progress-nav" id="ritualProgressNav"></div>
 			</section>
 
-			<div class="ritual-step-view" id="setupStepView">
+			<div class="ritual-step-shell">
+			<div class="ritual-step-view" id="introStepView">
+				<section class="panel panel-body">
+					<div class="ritual-step-header">
+						<div>
+							<div class="section-kicker">Tarot Flow</div>
+							<h2 style="font-size: 36px; margin-top: 6px;">开始占卜</h2>
+							<p>这次流程会在同一张页面里依次切到 Step 0 准备问题、Step 1 切牌、Step 2 抽牌、Step 3 揭牌、Step 4 解读。</p>
+						</div>
+						<div class="status-pill" id="engineBadge">AI 深度解读</div>
+					</div>
+
+					<div class="actions step-actions-inline" style="margin-top: 18px;">
+						<button class="primary-button" id="setupStartButton" type="button">开始占卜</button>
+					</div>
+				</section>
+			</div>
+
+			<div class="ritual-step-view hidden" id="setupStepView">
 				<section class="panel panel-body">
 					<div class="ritual-step-header">
 						<div>
 							<div class="section-kicker">Step 0 · 准备问题</div>
-							<h2 style="font-size: 38px; margin-top: 6px;">先定问题，再进入仪式</h2>
-							<p>这里先整理你要问的事、主题聚焦和牌阵规格。确定之后再进入切牌页，不会把所有操作一次性摊开。</p>
+							<h2 style="font-size: 36px; margin-top: 6px;">先写下你的提问</h2>
+							<p>先把你要问的事情写下来，再选主题聚焦和牌阵。写好后点击下一步进入切牌页面。</p>
 						</div>
-						<div class="status-pill" id="engineBadge">AI 深度解读</div>
+						<div class="status-pill">准备中</div>
 					</div>
 
 					<div class="field-group" style="margin-top: 18px;">
@@ -2007,11 +2046,12 @@
 
 					<div class="status-strip" style="margin-top: 18px;">
 						<span id="selectionSummary">当前牌阵：单牌启示 · 需要抽 1 张</span>
-						<span class="status-pill">下一页进入切牌仪式</span>
+						<span class="status-pill">下一步进入切牌</span>
 					</div>
 
-					<div class="actions" style="margin-top: 18px; grid-template-columns: 1fr;">
-						<button class="primary-button" id="setupStartButton" data-auth-required="true" data-auth-label="进入切牌步骤">进入 Step 1 · 切牌</button>
+					<div class="actions step-actions-inline" style="margin-top: 18px;">
+						<button class="ghost-button" id="setupBackButton" type="button">返回开始页</button>
+						<button class="primary-button" id="setupNextButton" data-auth-required="true" data-auth-label="进入切牌步骤" disabled>下一步 · Step 1 切牌</button>
 					</div>
 				</section>
 			</div>
@@ -2060,9 +2100,9 @@
 					</div>
 					<div class="reveal-note" id="revealNote">抽中的牌会先隐藏，等整组牌阵完成后，再连同正位或逆位一起揭晓。</div>
 
-					<div class="actions" style="margin-top: 18px;">
+					<div class="actions step-actions-inline" style="margin-top: 18px;">
 						<button class="ghost-button" id="toSetupButton" type="button">返回上一步</button>
-						<button class="primary-button" id="prepareButton" data-auth-required="true" data-auth-label="进入抽牌步骤" disabled>进入 Step 2 · 抽牌</button>
+						<button class="primary-button" id="prepareButton" data-auth-required="true" data-auth-label="进入抽牌步骤" disabled>继续 Step 2 · 抽牌</button>
 					</div>
 				</section>
 			</div>
@@ -2090,11 +2130,11 @@
 						<button class="ghost-button wheel-nav" id="wheelNextButton" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="向右拨动轮盘">&#8250;</button>
 					</div>
 					<div class="focus-card" id="focusCardDetails"></div>
-					<div class="actions wheel-actions">
+					<div class="actions wheel-actions step-actions-inline">
 						<button class="ghost-button" id="drawBackButton" type="button">返回切牌页</button>
 						<button class="primary-button" id="selectFocusedButton" data-auth-required="true" data-auth-label="抽取当前牌">选中当前牌</button>
 					</div>
-					<div class="actions wheel-actions" style="margin-top: 10px;">
+					<div class="actions wheel-actions step-actions-inline" style="margin-top: 10px;">
 						<button class="ghost-button" id="resetButton" data-auth-required="true" data-auth-label="重新开始占卜">重新开始</button>
 						<button class="ghost-button" id="randomSpinButton" data-auth-required="true" data-auth-label="随机转动轮盘">随机转动轮盘</button>
 					</div>
@@ -2112,7 +2152,7 @@
 						<div class="status-pill" id="revealStepBadge">等待揭牌</div>
 					</div>
 					<div class="positions-grid single" id="positionsGrid" data-auth-required="true" data-auth-label="揭开牌阵" style="margin-top: 18px;"></div>
-					<div class="actions reveal-actions hidden" id="revealActions">
+					<div class="actions reveal-actions step-actions-inline hidden" id="revealActions">
 						<button class="ghost-button" id="revealResetButton" type="button">重新开始</button>
 						<button class="primary-button" id="startReadingButton" data-auth-required="true" data-auth-label="开始解读牌阵" disabled>开始解读</button>
 					</div>
@@ -2132,9 +2172,10 @@
 
 					<div id="apiResultView" class="markdown-block hidden" style="margin-top: 18px;"></div>
 				</section>
-				<div class="actions" style="grid-template-columns: 1fr;">
+				<div class="actions step-actions-inline">
 					<button class="ghost-button" id="readingResetButton" type="button">重新开始新一轮占卜</button>
 				</div>
+			</div>
 			</div>
 
 			<div class="footer-note">当前版本支持手机端洗牌、轮盘抽牌、手动揭牌与完整解读。Windows 下运行 start-server.cmd 或 node server.js，然后打开 http://localhost:3000。</div>
@@ -2337,6 +2378,7 @@
 		const tarotScreen = document.getElementById('tarotScreen');
 		const accountScreen = document.getElementById('accountScreen');
 		const ritualProgressNav = document.getElementById('ritualProgressNav');
+		const introStepView = document.getElementById('introStepView');
 		const setupStepView = document.getElementById('setupStepView');
 		const shuffleStepView = document.getElementById('shuffleStepView');
 		const drawStepView = document.getElementById('drawStepView');
@@ -2396,6 +2438,8 @@
 		const drawProgress = document.getElementById('drawProgress');
 		const candidateHint = document.getElementById('candidateHint');
 		const revealActions = document.getElementById('revealActions');
+		const setupBackButton = document.getElementById('setupBackButton');
+		const setupNextButton = document.getElementById('setupNextButton');
 		const toSetupButton = document.getElementById('toSetupButton');
 		const drawBackButton = document.getElementById('drawBackButton');
 		const revealResetButton = document.getElementById('revealResetButton');
@@ -2445,7 +2489,7 @@
 		];
 
 		const ritualState = {
-			current: 'setup'
+			current: 'intro'
 		};
 
 		const MUSIC_STORAGE_KEY = 'tarot-ambient-music';
@@ -2697,6 +2741,8 @@
 
 		function canEnterRitualStep(stepId) {
 			switch (stepId) {
+				case 'intro':
+					return true;
 				case 'setup':
 				case 'shuffle':
 					return true;
@@ -2717,6 +2763,7 @@
 
 		function renderRitualStep() {
 			const viewMap = {
+				intro: introStepView,
 				setup: setupStepView,
 				shuffle: shuffleStepView,
 				draw: drawStepView,
@@ -2728,18 +2775,17 @@
 				element.classList.toggle('hidden', ritualState.current !== stepId);
 			});
 
-			const currentIndex = getRitualStepIndex(ritualState.current);
+			const currentIndex = ritualState.current === 'intro' ? -1 : getRitualStepIndex(ritualState.current);
 			ritualProgressNav.innerHTML = ritualSteps.map((step, index) => {
 				const isCurrent = step.id === ritualState.current;
 				const isUnlocked = canEnterRitualStep(step.id);
 				const isDone = isUnlocked && index < currentIndex;
 				const statusClass = isCurrent ? 'active' : (isDone ? 'done' : (isUnlocked ? 'ready' : 'locked'));
-				const disabled = (!isUnlocked && step.id !== 'shuffle') || isCurrent;
 				return `
-					<button class="ritual-progress-button ${statusClass}" type="button" data-step-nav="${step.id}" ${disabled ? 'disabled' : ''}>
+					<div class="ritual-progress-button ${statusClass}">
 						<strong>${index}. ${step.title}</strong>
 						<span>${step.desc}</span>
-					</button>
+					</div>
 				`;
 			}).join('');
 		}
@@ -2752,6 +2798,11 @@
 			ritualState.current = nextStep;
 			renderRitualStep();
 			return true;
+		}
+
+		function updateSetupStepUi() {
+			const hasQuestion = questionInput.value.trim().length > 0;
+			setupNextButton.disabled = !hasQuestion;
 		}
 
 		function setAuthMessage(message, type = 'success') {
@@ -3489,8 +3540,9 @@
 			renderSpreadBoard();
 			renderCandidates();
 			renderReading();
+			updateSetupStepUi();
 			updateShuffleUi();
-			setRitualStep(options.nextStep || 'setup', { force: true });
+			setRitualStep(options.nextStep || 'intro', { force: true });
 		}
 
 		function handleFocusChange(nextFocus) {
@@ -4068,7 +4120,17 @@
 
 		function bindEvents() {
 			setupStartButton.addEventListener('click', () => {
-				if (!requireAuth('进入切牌步骤')) {
+				setRitualStep('setup', { force: true });
+				updateSetupStepUi();
+			});
+
+			setupBackButton.addEventListener('click', () => {
+				setRitualStep('intro', { force: true });
+			});
+
+			setupNextButton.addEventListener('click', () => {
+				if (!questionInput.value.trim()) {
+					questionInput.focus();
 					return;
 				}
 				setRitualStep('shuffle', { force: true });
@@ -4176,20 +4238,14 @@
 				handleRecharge(Number(button.dataset.rechargeCredits));
 			});
 
-			ritualProgressNav.addEventListener('click', (event) => {
-				const button = event.target.closest('[data-step-nav]');
-				if (!button) {
-					return;
-				}
-				setRitualStep(button.dataset.stepNav);
-			});
-
 			focusChips.addEventListener('click', (event) => {
 				const button = event.target.closest('[data-focus]');
 				if (button) {
 					handleFocusChange(button.dataset.focus);
 				}
 			});
+
+			questionInput.addEventListener('input', updateSetupStepUi);
 
 			spreadOptions.addEventListener('click', (event) => {
 				const button = event.target.closest('[data-spread]');
@@ -4275,6 +4331,7 @@
 			renderSpreadBoard();
 			renderReading();
 			renderRitualStep();
+			updateSetupStepUi();
 			updateShuffleUi();
 			initializeDragGesture();
 			initializeWheelGesture();
