@@ -45,13 +45,16 @@ const ASSETS_DIR = path.join(__dirname, 'assets');
 const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(__dirname, 'data'));
 const USERS_PATH = path.join(DATA_DIR, 'users.json');
 const SESSION_COOKIE_NAME = 'tarot_session';
+const ADMIN_SESSION_COOKIE_NAME = 'tarot_admin_session';
 const SESSION_TTL = 1000 * 60 * 60 * 24 * 7;
+const ADMIN_PASSWORD = String(process.env.ADMIN_PASSWORD || '').trim();
 const WELCOME_CREDITS = 10;
 const READING_COST = 2;
 const DAILY_CHECKIN_REWARD = 2;
 const RMB_PER_CREDIT = 0.1;
 const MAX_ACTIVITY_LOGS = 60;
 const sessionStore = new Map();
+const adminSessionStore = new Map();
 let usersWriteQueue = Promise.resolve();
 const UPSTREAM_PROVIDER = /deepseek/i.test(UPSTREAM_API_URL) || /deepseek/i.test(UPSTREAM_MODEL) ? 'deepseek' : 'custom';
 const DEFAULT_SYSTEM_PROMPT = [
@@ -277,6 +280,16 @@ function buildClearSessionCookie(request) {
     return `${SESSION_COOKIE_NAME}=; HttpOnly; Path=/; SameSite=Lax; Expires=${new Date(0).toUTCString()}${secureAttribute}`;
 }
 
+function buildAdminSessionCookie(request, token, expiresAt) {
+    const secureAttribute = shouldUseSecureCookie(request) ? '; Secure' : '';
+    return `${ADMIN_SESSION_COOKIE_NAME}=${encodeURIComponent(token)}; HttpOnly; Path=/; SameSite=Lax; Expires=${new Date(expiresAt).toUTCString()}${secureAttribute}`;
+}
+
+function buildClearAdminSessionCookie(request) {
+    const secureAttribute = shouldUseSecureCookie(request) ? '; Secure' : '';
+    return `${ADMIN_SESSION_COOKIE_NAME}=; HttpOnly; Path=/; SameSite=Lax; Expires=${new Date(0).toUTCString()}${secureAttribute}`;
+}
+
 function createSession(userId) {
     const token = crypto.randomBytes(32).toString('hex');
     const expiresAt = Date.now() + SESSION_TTL;
@@ -284,9 +297,21 @@ function createSession(userId) {
     return { token, expiresAt };
 }
 
+function createAdminSession(adminLabel = '后台管理员') {
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = Date.now() + SESSION_TTL;
+    adminSessionStore.set(token, { adminLabel, expiresAt });
+    return { token, expiresAt };
+}
+
 function getSessionToken(request) {
     const cookies = parseCookies(request.headers.cookie || '');
     return cookies[SESSION_COOKIE_NAME] || '';
+}
+
+function getAdminSessionToken(request) {
+    const cookies = parseCookies(request.headers.cookie || '');
+    return cookies[ADMIN_SESSION_COOKIE_NAME] || '';
 }
 
 function getValidSession(token) {
@@ -296,6 +321,18 @@ function getValidSession(token) {
     }
     if (session.expiresAt < Date.now()) {
         sessionStore.delete(token);
+        return null;
+    }
+    return session;
+}
+
+function getValidAdminSession(token) {
+    const session = adminSessionStore.get(token);
+    if (!session) {
+        return null;
+    }
+    if (session.expiresAt < Date.now()) {
+        adminSessionStore.delete(token);
         return null;
     }
     return session;
@@ -324,6 +361,18 @@ async function requireAuthenticatedUser(request, response) {
 }
 
 async function requireAdminUser(request, response) {
+    const adminToken = getAdminSessionToken(request);
+    const adminSession = adminToken ? getValidAdminSession(adminToken) : null;
+    if (adminSession) {
+        return {
+            id: 'admin-session',
+            username: adminSession.adminLabel || '后台管理员',
+            email: '',
+            isAdmin: true,
+            authMode: 'password'
+        };
+    }
+
     const user = await requireAuthenticatedUser(request, response);
     if (!user) {
         return null;
@@ -333,6 +382,61 @@ async function requireAdminUser(request, response) {
         return null;
     }
     return user;
+}
+
+async function handleAdminLogin(request, response) {
+    let body;
+    try {
+        body = await readRequestBody(request);
+    } catch (error) {
+        sendJson(response, 400, { error: error.message });
+        return;
+    }
+
+    const password = String(body.password || '');
+    if (password.length < 1) {
+        sendJson(response, 400, { error: '请输入后台密码。' });
+        return;
+    }
+
+    let adminLabel = '后台管理员';
+    let matched = false;
+
+    if (ADMIN_PASSWORD && password === ADMIN_PASSWORD) {
+        matched = true;
+    } else {
+        const users = await readUsers();
+        const adminUser = users.find((item) => item.isAdmin && verifyPassword(password, item.passwordHash));
+        if (adminUser) {
+            matched = true;
+            adminLabel = adminUser.username || adminUser.email || '后台管理员';
+        }
+    }
+
+    if (!matched) {
+        sendJson(response, 401, { error: '后台密码不正确。' });
+        return;
+    }
+
+    const session = createAdminSession(adminLabel);
+    response.setHeader('Set-Cookie', buildAdminSessionCookie(request, session.token, session.expiresAt));
+    sendJson(response, 200, {
+        ok: true,
+        admin: {
+            username: adminLabel,
+            isAdmin: true,
+            authMode: 'password'
+        }
+    });
+}
+
+async function handleAdminLogout(request, response) {
+    const token = getAdminSessionToken(request);
+    if (token) {
+        adminSessionStore.delete(token);
+    }
+    response.setHeader('Set-Cookie', buildClearAdminSessionCookie(request));
+    sendJson(response, 200, { ok: true });
 }
 
 async function handleRegister(request, response) {
@@ -882,6 +986,16 @@ async function handleRequest(request, response) {
 
     if (request.method === 'GET' && url.pathname === '/api/admin/dashboard') {
         await handleAdminDashboard(request, response);
+        return;
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/admin/login') {
+        await handleAdminLogin(request, response);
+        return;
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/admin/logout') {
+        await handleAdminLogout(request, response);
         return;
     }
 

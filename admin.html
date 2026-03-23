@@ -122,6 +122,36 @@
 			font-weight: 700;
 		}
 
+		.form-stack {
+			display: grid;
+			gap: 12px;
+			margin-top: 14px;
+		}
+
+		.input {
+			width: 100%;
+			min-height: 48px;
+			padding: 0 14px;
+			border-radius: 16px;
+			border: 1px solid var(--line);
+			background: rgba(255, 255, 255, 0.04);
+			color: var(--text);
+			font: inherit;
+			outline: none;
+		}
+
+		.input:focus {
+			border-color: rgba(255, 207, 117, 0.3);
+			box-shadow: 0 0 0 3px rgba(255, 207, 117, 0.1);
+		}
+
+		.note {
+			color: var(--muted);
+			font-size: 13px;
+			line-height: 1.7;
+			margin: 0;
+		}
+
 		.summary-grid,
 		.user-list {
 			display: grid;
@@ -237,6 +267,17 @@
 			</div>
 		</section>
 
+		<section class="panel hidden" id="loginPanel">
+			<div class="state-card">
+				<h2>输入后台密码</h2>
+				<p class="note" id="loginNote" style="margin-top: 10px;">只要后台密码正确，就可以直接查看后台数据。</p>
+				<form class="form-stack" id="adminLoginForm">
+					<input class="input" id="adminPasswordInput" type="password" placeholder="请输入后台密码">
+					<button class="button primary" id="adminLoginButton" type="submit">进入后台</button>
+				</form>
+			</div>
+		</section>
+
 		<section class="panel hidden" id="dashboardPanel">
 			<h2>概览数据</h2>
 			<div class="summary-grid" id="summaryGrid"></div>
@@ -249,12 +290,18 @@
 	</div>
 
 	<script>
-		const AUTH_SESSION_ENDPOINT = '/api/auth/session';
+		const ADMIN_LOGIN_ENDPOINT = '/api/admin/login';
+		const ADMIN_LOGOUT_ENDPOINT = '/api/admin/logout';
 		const ADMIN_DASHBOARD_ENDPOINT = '/api/admin/dashboard';
 
 		const adminStatus = document.getElementById('adminStatus');
 		const pageIntro = document.getElementById('pageIntro');
 		const refreshButton = document.getElementById('refreshButton');
+		const loginPanel = document.getElementById('loginPanel');
+		const loginNote = document.getElementById('loginNote');
+		const adminLoginForm = document.getElementById('adminLoginForm');
+		const adminPasswordInput = document.getElementById('adminPasswordInput');
+		const adminLoginButton = document.getElementById('adminLoginButton');
 		const errorPanel = document.getElementById('errorPanel');
 		const errorTitle = document.getElementById('errorTitle');
 		const errorText = document.getElementById('errorText');
@@ -283,8 +330,20 @@
 			});
 		}
 
-		async function requestJson(url) {
-			const response = await fetch(url, { credentials: 'same-origin' });
+		async function requestJson(url, options = {}) {
+			let response;
+			try {
+				response = await fetch(url, {
+					credentials: 'same-origin',
+					...options,
+					headers: {
+						'Content-Type': 'application/json',
+						...(options.headers || {})
+					}
+				});
+			} catch {
+				throw new Error('无法连接后台接口。请确认你是通过完整 Node 服务访问当前网站，并且已经登录管理员账号。');
+			}
 			const text = await response.text();
 			let data = {};
 			if (text) {
@@ -303,14 +362,27 @@
 			pageIntro.textContent = text;
 			errorTitle.textContent = title;
 			errorText.textContent = text;
+			loginPanel.classList.add('hidden');
 			errorPanel.classList.remove('hidden');
 			dashboardPanel.classList.add('hidden');
 			usersPanel.classList.add('hidden');
 		}
 
+		function showLogin(text = '只要后台密码正确，就可以直接查看后台数据。') {
+			adminStatus.textContent = '等待口令';
+			pageIntro.textContent = text;
+			loginNote.textContent = text;
+			errorPanel.classList.add('hidden');
+			loginPanel.classList.remove('hidden');
+			dashboardPanel.classList.add('hidden');
+			usersPanel.classList.add('hidden');
+			setTimeout(() => adminPasswordInput.focus(), 0);
+		}
+
 		function renderDashboard(data) {
-			adminStatus.textContent = '管理员';
+			adminStatus.textContent = '后台已解锁';
 			pageIntro.textContent = '当前展示的是所有用户的注册、解读、签到和充值汇总数据。';
+			loginPanel.classList.add('hidden');
 			errorPanel.classList.add('hidden');
 			dashboardPanel.classList.remove('hidden');
 			usersPanel.classList.remove('hidden');
@@ -354,26 +426,40 @@
 		async function loadAdminDashboard() {
 			refreshButton.disabled = true;
 			try {
-				const session = await requestJson(AUTH_SESSION_ENDPOINT);
-				if (!session.user) {
-					showError('尚未登录', '请先回到账户页登录管理员账号，再访问后台数据页。');
-					return;
-				}
-				if (!session.user.isAdmin) {
-					showError('权限不足', '当前账号不是管理员，无法查看后台数据。');
-					return;
-				}
-
 				const dashboard = await requestJson(ADMIN_DASHBOARD_ENDPOINT);
 				renderDashboard(dashboard);
 			} catch (error) {
+				if (error.status === 401 || error.status === 403) {
+					showLogin(error.message || '请输入后台密码。');
+					return;
+				}
 				showError('加载失败', error.message || '后台数据加载失败。');
 			} finally {
 				refreshButton.disabled = false;
 			}
 		}
 
+		async function handleAdminLogin(event) {
+			event.preventDefault();
+			adminLoginButton.disabled = true;
+			try {
+				await requestJson(ADMIN_LOGIN_ENDPOINT, {
+					method: 'POST',
+					body: JSON.stringify({
+						password: adminPasswordInput.value
+					})
+				});
+				adminPasswordInput.value = '';
+				await loadAdminDashboard();
+			} catch (error) {
+				showLogin(error.message || '后台密码不正确。');
+			} finally {
+				adminLoginButton.disabled = false;
+			}
+		}
+
 		refreshButton.addEventListener('click', loadAdminDashboard);
+		adminLoginForm.addEventListener('submit', handleAdminLogin);
 		loadAdminDashboard();
 	</script>
 </body>

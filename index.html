@@ -94,6 +94,176 @@
 			gap: 12px;
 		}
 
+		.panel-body {
+			padding: 22px 18px 18px;
+		}
+
+		.section-kicker,
+		.micro {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			font-size: 11px;
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+			color: rgba(255, 206, 114, 0.78);
+		}
+
+		.section-kicker::before,
+		.micro::before {
+			content: '✦';
+			font-size: 10px;
+			color: rgba(137, 208, 196, 0.8);
+		}
+
+		.field-group {
+			display: grid;
+			gap: 10px;
+		}
+
+		.field-label {
+			font-size: 13px;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: rgba(247, 241, 226, 0.72);
+		}
+
+		input,
+		textarea {
+			width: 100%;
+			padding: 15px 16px;
+			border-radius: 18px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			background:
+				radial-gradient(circle at top, rgba(255, 206, 114, 0.08), transparent 48%),
+				linear-gradient(180deg, rgba(3, 17, 22, 0.92), rgba(7, 31, 37, 0.88));
+			color: var(--ink);
+			font: inherit;
+			outline: none;
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+			transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		}
+
+		input::placeholder,
+		textarea::placeholder {
+			color: rgba(247, 241, 226, 0.4);
+		}
+
+		input:focus,
+		textarea:focus {
+			border-color: rgba(255, 206, 114, 0.5);
+			box-shadow: 0 0 0 3px rgba(255, 206, 114, 0.12), 0 12px 28px rgba(0, 0, 0, 0.14);
+			background:
+				radial-gradient(circle at top, rgba(255, 206, 114, 0.12), transparent 52%),
+				linear-gradient(180deg, rgba(4, 23, 29, 0.96), rgba(8, 35, 41, 0.92));
+		}
+
+		textarea {
+			min-height: 148px;
+			resize: vertical;
+			line-height: 1.8;
+		}
+
+		.auth-trigger {
+			width: 100%;
+			padding: 14px 16px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 20px;
+			background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+			color: var(--ink);
+			font: inherit;
+			cursor: pointer;
+		}
+
+		.auth-meta {
+			display: grid;
+			gap: 4px;
+			text-align: left;
+		}
+
+		.auth-meta strong {
+			font-size: 15px;
+			font-weight: 700;
+			color: var(--surface-warm);
+		}
+
+		.auth-meta span,
+		.auth-status,
+		.auth-note {
+			font-size: 13px;
+			line-height: 1.7;
+			color: var(--ink-soft);
+		}
+
+		.auth-panel-body {
+			margin-top: 12px;
+			padding: 16px;
+			border-radius: 22px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			background: linear-gradient(180deg, rgba(4, 24, 29, 0.88), rgba(6, 17, 22, 0.82));
+		}
+
+		.auth-tabs {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 8px;
+		}
+
+		.auth-form {
+			display: grid;
+			gap: 10px;
+		}
+
+		.auth-message {
+			margin-bottom: 12px;
+			padding: 12px 14px;
+			border-radius: 16px;
+			background: rgba(255, 206, 114, 0.1);
+			border: 1px solid rgba(255, 206, 114, 0.16);
+			color: rgba(255, 241, 214, 0.92);
+			font-size: 13px;
+			line-height: 1.7;
+		}
+
+		.auth-message.success {
+			background: rgba(137, 208, 196, 0.12);
+			border-color: rgba(137, 208, 196, 0.28);
+			color: rgba(223, 255, 248, 0.92);
+		}
+
+		.auth-message.error {
+			background: rgba(255, 142, 122, 0.12);
+			border-color: rgba(255, 142, 122, 0.26);
+			color: rgba(255, 226, 220, 0.94);
+		}
+
+		.auth-usercard {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 14px;
+			padding: 14px 16px;
+			border-radius: 20px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			background: rgba(255, 255, 255, 0.04);
+		}
+
+		.auth-usermeta {
+			display: grid;
+			gap: 4px;
+		}
+
+		.auth-usermeta h3 {
+			margin: 0;
+			font-size: 24px;
+			font-family: 'Cormorant Garamond', serif;
+			color: var(--surface-warm);
+		}
+
 		.actions,
 		.insight-grid,
 		.api-grid,
@@ -108,6 +278,7 @@
 		.chip-row,
 		.spread-row,
 		.recommend-row {
+			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
 		}
 
@@ -142,6 +313,9 @@
 		.result-toggle {
 			padding: 10px 12px;
 			cursor: pointer;
+			min-height: 84px;
+			display: grid;
+			align-content: center;
 			transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 		}
 
@@ -170,6 +344,198 @@
 
 		.spread-option {
 			text-align: left;
+		}
+
+		#focusChips.chip-row {
+			grid-auto-flow: row;
+			grid-auto-columns: unset;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			overflow-x: visible;
+			padding-bottom: 0;
+			gap: 12px;
+		}
+
+		#spreadOptions.spread-row {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 12px;
+		}
+
+		#focusChips .chip {
+			position: relative;
+			overflow: hidden;
+			min-height: 92px;
+			padding: 14px 14px 13px;
+			border-radius: 22px;
+			border-color: rgba(255, 255, 255, 0.08);
+			background:
+				radial-gradient(circle at 16% 18%, rgba(255, 206, 114, 0.12), transparent 34%),
+				radial-gradient(circle at 82% 78%, rgba(137, 208, 196, 0.08), transparent 28%),
+				linear-gradient(160deg, rgba(9, 33, 39, 0.96), rgba(4, 18, 23, 0.94));
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 12px 24px rgba(0, 0, 0, 0.16);
+		}
+
+		#focusChips .chip::before,
+		#focusChips .chip::after,
+		#spreadOptions .spread-option::before,
+		#spreadOptions .spread-option::after {
+			content: '';
+			position: absolute;
+			pointer-events: none;
+		}
+
+		#focusChips .chip::before {
+			inset: 9px;
+			border-radius: 16px;
+			border: 1px solid rgba(255, 206, 114, 0.12);
+		}
+
+		#focusChips .chip::after {
+			right: 12px;
+			top: 10px;
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(255, 206, 114, 0.18), rgba(255, 206, 114, 0));
+			filter: blur(2px);
+		}
+
+		#focusChips .chip .chip-sigil {
+			position: absolute;
+			right: 14px;
+			bottom: 12px;
+			font-size: 18px;
+			line-height: 1;
+			opacity: 0.2;
+			z-index: 1;
+			filter: drop-shadow(0 0 10px rgba(255, 206, 114, 0.08));
+		}
+
+		#focusChips .chip[data-focus="love"] .chip-sigil {
+			color: rgba(255, 206, 114, 0.78);
+		}
+
+		#focusChips .chip[data-focus="career"] .chip-sigil {
+			color: rgba(137, 208, 196, 0.76);
+		}
+
+		#focusChips .chip[data-focus="wealth"] .chip-sigil {
+			color: rgba(255, 206, 114, 0.84);
+		}
+
+		#focusChips .chip[data-focus="growth"] .chip-sigil {
+			color: rgba(137, 208, 196, 0.82);
+		}
+
+		#focusChips .chip[data-focus="decision"] .chip-sigil {
+			color: rgba(244, 234, 212, 0.72);
+		}
+
+		#spreadOptions .spread-option {
+			position: relative;
+			overflow: hidden;
+			min-height: 104px;
+			padding: 14px 14px 13px;
+			border-radius: 24px;
+			border-color: rgba(255, 255, 255, 0.08);
+			background:
+				linear-gradient(180deg, rgba(255, 206, 114, 0.08), transparent 34%),
+				radial-gradient(circle at top, rgba(244, 234, 212, 0.08), transparent 52%),
+				radial-gradient(circle at 78% 80%, rgba(137, 208, 196, 0.08), transparent 32%),
+				linear-gradient(165deg, rgba(9, 32, 38, 0.96), rgba(4, 17, 22, 0.96));
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 28px rgba(0, 0, 0, 0.18);
+		}
+
+		#spreadOptions .spread-option::before {
+			inset: 10px;
+			border-radius: 18px;
+			border: 1px solid rgba(255, 206, 114, 0.14);
+		}
+
+		#spreadOptions .spread-option::after {
+			left: 14px;
+			top: 12px;
+			width: 42px;
+			height: 1px;
+			background: linear-gradient(90deg, rgba(255, 206, 114, 0.78), rgba(255, 206, 114, 0));
+		}
+
+		#focusChips .chip strong,
+		#spreadOptions .spread-option strong {
+			font-size: 14px;
+			position: relative;
+			z-index: 1;
+			color: var(--surface-warm);
+		}
+
+		#focusChips .chip span,
+		#spreadOptions .spread-option span {
+			color: rgba(247, 241, 226, 0.74);
+		}
+
+		#focusChips .chip span,
+		#spreadOptions .spread-option span {
+			margin-top: 6px;
+			line-height: 1.55;
+			position: relative;
+			z-index: 1;
+		}
+
+		#focusChips .chip:hover,
+		#spreadOptions .spread-option:hover {
+			transform: translateY(-3px);
+			border-color: rgba(255, 206, 114, 0.24);
+		}
+
+		#focusChips .chip.active {
+			border-color: rgba(255, 206, 114, 0.42);
+			background:
+				radial-gradient(circle at 16% 18%, rgba(255, 206, 114, 0.2), transparent 34%),
+				radial-gradient(circle at 82% 78%, rgba(137, 208, 196, 0.12), transparent 28%),
+				linear-gradient(160deg, rgba(15, 40, 47, 0.98), rgba(6, 21, 27, 0.96));
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 30px rgba(0, 0, 0, 0.2), 0 0 24px rgba(255, 206, 114, 0.08);
+		}
+
+		#spreadOptions .spread-option.active {
+			border-color: rgba(255, 206, 114, 0.46);
+			background:
+				linear-gradient(180deg, rgba(255, 206, 114, 0.14), transparent 38%),
+				radial-gradient(circle at top, rgba(244, 234, 212, 0.12), transparent 54%),
+				radial-gradient(circle at 78% 80%, rgba(137, 208, 196, 0.1), transparent 32%),
+				linear-gradient(165deg, rgba(15, 40, 47, 0.98), rgba(6, 21, 27, 0.96));
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 30px rgba(0, 0, 0, 0.2), 0 0 26px rgba(255, 206, 114, 0.08);
+		}
+
+		#spreadOptions .spread-option.active strong::after {
+			content: ' · 已选中';
+			font-size: 11px;
+			letter-spacing: 0.08em;
+			color: rgba(255, 206, 114, 0.8);
+		}
+
+		@media (max-width: 480px) {
+			#focusChips.chip-row {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+
+			#spreadOptions.spread-row {
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+			}
+
+			#focusChips .chip,
+			#spreadOptions .spread-option {
+				min-height: 88px;
+				padding: 12px 12px 11px;
+			}
+
+			#focusChips .chip strong,
+			#spreadOptions .spread-option strong {
+				font-size: 13px;
+			}
+
+			#focusChips .chip span,
+			#spreadOptions .spread-option span {
+				font-size: 10px;
+			}
 		}
 
 		.ghost-button,
@@ -2265,25 +2631,25 @@
 					<div class="ritual-step-header">
 						<div>
 							<div class="section-kicker">Step 0 · 准备问题</div>
-							<h2 style="font-size: 36px; margin-top: 6px;">先写下你的提问</h2>
-							<p>先把你要问的事情写下来，再选主题聚焦和牌阵。写好后点击下一步进入切牌页面。</p>
+							<h2 style="font-size: 36px; margin-top: 6px;">把想问的话轻轻落进牌阵</h2>
+							<p>先把此刻最在意的问题写下来，再选一个主题与牌阵，让接下来的每一步都更贴近你真正想知道的答案。</p>
 						</div>
 						<div class="status-pill">准备中</div>
 					</div>
 
 					<div class="field-group" style="margin-top: 18px;">
 						<div class="field-label">你的问题</div>
-						<textarea id="questionInput" data-auth-required="true" data-auth-label="填写你的问题" placeholder="例如：我最近要不要换工作？这段关系未来三个月会如何发展？"></textarea>
+						<textarea id="questionInput" data-auth-required="true" data-auth-label="输入占卜问题" placeholder="例如：我最近要不要换工作？这段关系未来三个月会如何发展？"></textarea>
 					</div>
 
 					<div class="field-group" style="margin-top: 18px;">
 						<div class="field-label">主题聚焦</div>
-						<div class="chip-row" id="focusChips" data-auth-required="true" data-auth-label="选择主题聚焦"></div>
+						<div class="chip-row" id="focusChips"></div>
 					</div>
 
 					<div class="field-group" style="margin-top: 18px;">
 						<div class="field-label">选择牌阵</div>
-						<div class="spread-row" id="spreadOptions" data-auth-required="true" data-auth-label="选择牌阵"></div>
+						<div class="spread-row" id="spreadOptions"></div>
 					</div>
 
 					<div class="status-strip" style="margin-top: 18px;">
@@ -2293,7 +2659,7 @@
 
 					<div class="actions step-actions-inline" style="margin-top: 18px;">
 						<button class="ghost-button" id="setupBackButton" type="button">返回开始页</button>
-						<button class="primary-button" id="setupNextButton" data-auth-required="true" data-auth-label="进入切牌步骤" disabled>下一步 · Step 1 切牌</button>
+						<button class="primary-button" id="setupNextButton" disabled>下一步 · Step 1 切牌</button>
 					</div>
 				</section>
 			</div>
@@ -2309,7 +2675,7 @@
 						<div class="status-pill" id="drawStatus">等待洗牌</div>
 					</div>
 
-					<div class="deck-stage" id="deckStage" data-auth-required="true" data-auth-label="开始切牌仪式">
+					<div class="deck-stage" id="deckStage">
 						<div class="constellation"></div>
 						<div class="shuffle-gesture-hint" id="shuffleGestureHint" aria-hidden="true">
 							<div class="shuffle-gesture-track">
@@ -2344,7 +2710,7 @@
 
 					<div class="actions step-actions-inline" style="margin-top: 18px;">
 						<button class="ghost-button" id="toSetupButton" type="button">返回上一步</button>
-						<button class="primary-button" id="prepareButton" data-auth-required="true" data-auth-label="进入抽牌步骤" disabled>继续 Step 2 · 抽牌</button>
+						<button class="primary-button" id="prepareButton" disabled>继续 Step 2 · 抽牌</button>
 					</div>
 				</section>
 			</div>
@@ -2364,21 +2730,21 @@
 						<span class="status-pill">轮盘锁定中</span>
 					</div>
 					<div class="wheel-shell">
-						<button class="ghost-button wheel-nav" id="wheelPrevButton" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="向左拨动轮盘">&#8249;</button>
-						<div class="wheel-stage" id="wheelStage" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="78 张塔罗牌轮盘，可左右滑动切换当前牌">
+						<button class="ghost-button wheel-nav" id="wheelPrevButton" aria-label="向左拨动轮盘">&#8249;</button>
+						<div class="wheel-stage" id="wheelStage" aria-label="78 张塔罗牌轮盘，可左右滑动切换当前牌">
 							<div class="candidate-row" id="candidateRow"></div>
 							<div class="wheel-center-marker"></div>
 						</div>
-						<button class="ghost-button wheel-nav" id="wheelNextButton" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="向右拨动轮盘">&#8250;</button>
+						<button class="ghost-button wheel-nav" id="wheelNextButton" aria-label="向右拨动轮盘">&#8250;</button>
 					</div>
 					<div class="focus-card" id="focusCardDetails"></div>
 					<div class="actions wheel-actions step-actions-inline">
 						<button class="ghost-button" id="drawBackButton" type="button">返回切牌页</button>
-						<button class="primary-button" id="selectFocusedButton" data-auth-required="true" data-auth-label="抽取当前牌">选中当前牌</button>
+						<button class="primary-button" id="selectFocusedButton">选中当前牌</button>
 					</div>
 					<div class="actions wheel-actions step-actions-inline" style="margin-top: 10px;">
-						<button class="ghost-button" id="resetButton" data-auth-required="true" data-auth-label="重新开始占卜">重新开始</button>
-						<button class="ghost-button" id="randomSpinButton" data-auth-required="true" data-auth-label="随机转动轮盘">随机转动轮盘</button>
+						<button class="ghost-button" id="resetButton">重新开始</button>
+						<button class="ghost-button" id="randomSpinButton">随机转动轮盘</button>
 					</div>
 				</section>
 			</div>
@@ -2393,7 +2759,7 @@
 						</div>
 						<div class="status-pill" id="revealStepBadge">等待揭牌</div>
 					</div>
-					<div class="positions-grid single" id="positionsGrid" data-auth-required="true" data-auth-label="揭开牌阵" style="margin-top: 18px;"></div>
+					<div class="positions-grid single" id="positionsGrid" style="margin-top: 18px;"></div>
 					<div class="actions reveal-actions step-actions-inline hidden" id="revealActions">
 						<button class="ghost-button" id="revealResetButton" type="button">重新开始</button>
 						<button class="primary-button" id="startReadingButton" data-auth-required="true" data-auth-label="开始解读牌阵" disabled>开始解读</button>
@@ -2474,11 +2840,11 @@
 		};
 
 		const focusOptions = [
-			{ id: 'love', title: '感情关系', desc: '情绪互动、暧昧与稳定性' },
-			{ id: 'career', title: '事业工作', desc: '机会、决策与外部阻力' },
-			{ id: 'wealth', title: '金钱资源', desc: '投入回报、风险与现金流' },
-			{ id: 'growth', title: '自我成长', desc: '心理课题、能量状态与突破' },
-			{ id: 'decision', title: '重要选择', desc: '两难、时机与最优路径' }
+			{ id: 'love', title: '感情关系', desc: '情绪互动、暧昧与稳定性', sigil: '♡' },
+			{ id: 'career', title: '事业工作', desc: '机会、决策与外部阻力', sigil: '✦' },
+			{ id: 'wealth', title: '金钱资源', desc: '投入回报、风险与现金流', sigil: '◈' },
+			{ id: 'growth', title: '自我成长', desc: '心理课题、能量状态与突破', sigil: '☽' },
+			{ id: 'decision', title: '重要选择', desc: '两难、时机与最优路径', sigil: '✧' }
 		];
 
 		const focusProfiles = {
@@ -2752,11 +3118,13 @@
 			const normalizedScreen = nextScreen === 'account' ? 'account' : 'tarot';
 			if (!options.force && screenState.current === normalizedScreen) {
 				renderScreen();
+				renderAuth();
 				return;
 			}
 
 			screenState.current = normalizedScreen;
 			renderScreen();
+			renderAuth();
 		}
 
 		function getRitualStepIndex(stepId) {
@@ -2894,6 +3262,26 @@
 
 		function createEmptyState(text) {
 			return `<div class="activity-item"><p>${text}</p></div>`;
+		}
+
+		function setAuthMessage(message, type = 'error') {
+			if (!authMessage) {
+				return;
+			}
+
+			authMessage.textContent = message || '';
+			authMessage.classList.remove('hidden', 'success', 'error');
+			authMessage.classList.add(type === 'success' ? 'success' : 'error');
+		}
+
+		function clearAuthMessage() {
+			if (!authMessage) {
+				return;
+			}
+
+			authMessage.textContent = '';
+			authMessage.classList.remove('success', 'error');
+			authMessage.classList.add('hidden');
 		}
 
 		function applyAccountResponse(data) {
@@ -3060,14 +3448,29 @@
 		}
 
 		async function requestJson(url, options = {}) {
-			const response = await fetch(url, {
-				credentials: 'same-origin',
-				...options,
-				headers: {
-					'Content-Type': 'application/json',
-					...(options.headers || {})
+			let response;
+			try {
+				response = await fetch(url, {
+					credentials: 'same-origin',
+					...options,
+					headers: {
+						'Content-Type': 'application/json',
+						...(options.headers || {})
+					}
+				});
+			} catch (error) {
+				const apiOrigin = new URL(url, window.location.href).origin;
+				const currentOrigin = window.location.origin;
+				if (window.location.protocol === 'file:') {
+					throw new Error('当前页面是直接打开的本地文件，注册/登录接口不可用。请先运行 node server.js，再访问 http://localhost:3000。');
 				}
-			});
+
+				if (apiOrigin !== currentOrigin) {
+					throw new Error(`当前页面正在请求 ${apiOrigin}，但该接口无法连接。请确认 Node 服务已启动，或前后端已部署在同一个可访问域名下。`);
+				}
+
+				throw new Error('无法连接到网站后端接口。请确认你部署的是完整 Node 项目，而不是只上传了前端静态页面。');
+			}
 			const rawText = await response.text();
 			let data = {};
 			if (rawText) {
@@ -3122,11 +3525,12 @@
 				});
 				authState.user = data.user;
 				applyAccountResponse(data);
-				authState.open = false;
+				authState.open = true;
 				loginForm.reset();
-				clearAuthMessage();
 				await loadAccountData();
-				setScreen('tarot');
+				setScreen('account', { force: true });
+				setAuthMessage('登录成功。你可以在这里签到、充值和查看积分。', 'success');
+				renderAuth();
 			} catch (error) {
 				setAuthMessage(error.message, 'error');
 				authState.open = true;
@@ -3151,11 +3555,12 @@
 				});
 				authState.user = data.user;
 				applyAccountResponse(data);
-				authState.open = false;
+				authState.open = true;
 				registerForm.reset();
-				clearAuthMessage();
 				await loadAccountData();
-				setScreen('tarot');
+				setScreen('account', { force: true });
+				setAuthMessage('注册成功，系统已赠送 10 积分。你现在可以签到、充值或开始占卜。', 'success');
+				renderAuth();
 			} catch (error) {
 				setAuthMessage(error.message, 'error');
 				authState.open = true;
@@ -3256,6 +3661,7 @@
 				<button class="chip ${option.id === state.focus ? 'active' : ''}" data-focus="${option.id}">
 					<strong>${option.title}</strong>
 					<span>${option.desc}</span>
+					<span class="chip-sigil" aria-hidden="true">${option.sigil || '✦'}</span>
 				</button>
 			`).join('');
 		}
@@ -3576,27 +3982,18 @@
 		}
 
 		function handleFocusChange(nextFocus) {
-			if (!requireAuth('选择主题聚焦')) {
-				return;
-			}
 			state.focus = nextFocus;
 			renderFocusOptions();
 			resetSession({ nextStep: 'setup' });
 		}
 
 		function handleSpreadChange(nextSpread) {
-			if (!requireAuth('选择牌阵')) {
-				return;
-			}
 			state.spread = nextSpread;
 			renderSpreadOptions();
 			resetSession({ nextStep: 'setup' });
 		}
 
 		function createDraw(candidateIndex) {
-			if (!requireAuth('抽取塔罗牌')) {
-				return;
-			}
 			const candidate = state.candidates[candidateIndex];
 			if (!candidate || candidate.used || state.draws.length >= spreads[state.spread].drawCount) {
 				return;
@@ -3624,9 +4021,6 @@
 		}
 
 		function flipRevealedCard(index) {
-			if (!requireAuth('揭开牌阵')) {
-				return;
-			}
 			if (!isRevealReady() || state.flippedPositions[index]) {
 				return;
 			}
@@ -3646,9 +4040,6 @@
 			};
 
 			const onPointerDown = (event) => {
-				if (!requireAuth('拨动塔罗轮盘')) {
-					return;
-				}
 				gesture.active = true;
 				cancelAnimationFrame(wheelAnimationId);
 				gesture.startX = event.clientX;
@@ -4088,9 +4479,6 @@
 			};
 
 			const onPointerDown = (event) => {
-				if (!requireAuth('开始切牌仪式')) {
-					return;
-				}
 				if (event.target.closest('#prepareButton') || event.target.closest('#resetButton')) {
 					return;
 				}
@@ -4220,7 +4608,7 @@
 					return;
 				}
 
-				const guardedTarget = event.target.closest('[data-auth-required], textarea, input');
+				const guardedTarget = event.target.closest('[data-auth-required]');
 				if (!guardedTarget) {
 					return;
 				}
