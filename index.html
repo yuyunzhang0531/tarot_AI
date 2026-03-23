@@ -575,6 +575,89 @@
 			transform: scale(0.98);
 		}
 
+		.shuffle-gesture-hint {
+			position: absolute;
+			left: 50%;
+			top: 18px;
+			transform: translateX(-50%);
+			z-index: 3;
+			display: grid;
+			justify-items: center;
+			gap: 8px;
+			pointer-events: none;
+			transition: opacity 220ms ease;
+		}
+
+		.shuffle-gesture-hint.hidden {
+			opacity: 0;
+		}
+
+		.shuffle-gesture-track {
+			position: relative;
+			width: min(68vw, 210px);
+			height: 44px;
+			border-radius: 999px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,206,114,0.06), rgba(255,255,255,0.02));
+			overflow: hidden;
+		}
+
+		.shuffle-gesture-track::before {
+			content: '';
+			position: absolute;
+			left: 18px;
+			right: 18px;
+			top: 50%;
+			height: 1px;
+			transform: translateY(-50%);
+			background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,206,114,0.55), rgba(255,255,255,0));
+		}
+
+		.shuffle-gesture-hand {
+			position: absolute;
+			left: 18px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.95), rgba(255,206,114,0.9));
+			box-shadow: 0 10px 28px rgba(255, 206, 114, 0.24);
+			animation: handSwipe 1.8s ease-in-out infinite;
+		}
+
+		.shuffle-gesture-hand::before {
+			content: '';
+			position: absolute;
+			inset: 12px 10px 8px 16px;
+			border-radius: 14px 14px 10px 10px;
+			background: rgba(4, 26, 31, 0.2);
+			transform: rotate(-18deg);
+		}
+
+		.shuffle-gesture-glow {
+			position: absolute;
+			left: 18px;
+			top: 50%;
+			width: 52px;
+			height: 18px;
+			border-radius: 999px;
+			background: radial-gradient(circle, rgba(137, 208, 196, 0.38), rgba(137, 208, 196, 0));
+			transform: translateY(-50%);
+			filter: blur(4px);
+			animation: handSwipeGlow 1.8s ease-in-out infinite;
+		}
+
+		.shuffle-gesture-caption {
+			padding: 6px 12px;
+			border-radius: 999px;
+			background: rgba(4, 26, 31, 0.7);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			font-size: 12px;
+			letter-spacing: 0.04em;
+			color: rgba(247, 241, 226, 0.84);
+		}
+
 		.deck-instruction {
 			position: absolute;
 			left: 16px;
@@ -1422,6 +1505,88 @@
 			display: none;
 		}
 
+		.ritual-progress-panel {
+			padding: 20px;
+		}
+
+		.ritual-progress-intro {
+			display: grid;
+			gap: 8px;
+		}
+
+		.ritual-progress-intro p,
+		.ritual-step-header p {
+			margin: 0;
+			color: var(--ink-soft);
+			font-size: 14px;
+			line-height: 1.8;
+		}
+
+		.ritual-progress-nav {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: 10px;
+			margin-top: 18px;
+		}
+
+		.ritual-progress-button {
+			padding: 14px 16px;
+			border-radius: 18px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			background: rgba(255, 255, 255, 0.04);
+			color: var(--ink);
+			text-align: left;
+			cursor: pointer;
+			transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+		}
+
+		.ritual-progress-button:hover {
+			transform: translateY(-2px);
+			border-color: rgba(255, 206, 114, 0.32);
+		}
+
+		.ritual-progress-button.active {
+			border-color: rgba(255, 206, 114, 0.72);
+			background: linear-gradient(180deg, rgba(255, 206, 114, 0.18), rgba(255, 206, 114, 0.06));
+		}
+
+		.ritual-progress-button.done {
+			border-color: rgba(137, 208, 196, 0.3);
+			background: rgba(137, 208, 196, 0.08);
+		}
+
+		.ritual-progress-button.locked {
+			opacity: 0.54;
+		}
+
+		.ritual-progress-button strong,
+		.ritual-progress-button span {
+			display: block;
+		}
+
+		.ritual-progress-button strong {
+			font-size: 14px;
+		}
+
+		.ritual-progress-button span {
+			margin-top: 6px;
+			font-size: 12px;
+			line-height: 1.6;
+			color: rgba(247, 241, 226, 0.68);
+		}
+
+		.ritual-step-view {
+			display: grid;
+			gap: 18px;
+		}
+
+		.ritual-step-header {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 16px;
+		}
+
 		.screen-nav {
 			display: flex;
 			align-items: center;
@@ -1537,6 +1702,46 @@
 			}
 		}
 
+		@keyframes handSwipe {
+			0% {
+				transform: translate(0, -50%) scale(0.92);
+				opacity: 0;
+			}
+			15% {
+				opacity: 1;
+			}
+			50% {
+				transform: translate(128px, -50%) scale(1);
+				opacity: 1;
+			}
+			65% {
+				transform: translate(148px, -50%) scale(0.98);
+				opacity: 0.9;
+			}
+			100% {
+				transform: translate(0, -50%) scale(0.92);
+				opacity: 0;
+			}
+		}
+
+		@keyframes handSwipeGlow {
+			0% {
+				transform: translate(0, -50%) scaleX(0.6);
+				opacity: 0;
+			}
+			20% {
+				opacity: 0.9;
+			}
+			50% {
+				transform: translate(124px, -50%) scaleX(1.25);
+				opacity: 0.65;
+			}
+			100% {
+				transform: translate(0, -50%) scaleX(0.6);
+				opacity: 0;
+			}
+		}
+
 		@keyframes revealFlip {
 			0% {
 				transform: rotateY(0deg) translateY(10px) scale(0.96);
@@ -1565,10 +1770,15 @@
 		}
 
 		@media (max-width: 480px) {
+			.ritual-step-header,
 			.screen-nav,
 			.screen-nav-actions {
 				flex-direction: column;
 				align-items: stretch;
+			}
+
+			.ritual-progress-nav {
+				grid-template-columns: 1fr;
 			}
 
 			.recharge-layout {
@@ -1760,112 +1970,172 @@
 			<p>✨ 今夜的牌阵，将替你照见未说出口的答案 🔮</p>
 		</section>
 
-		<section class="panel panel-body">
-			<div class="field-group">
-				<div class="field-label">你的问题</div>
-				<textarea id="questionInput" data-auth-required="true" data-auth-label="填写你的问题" placeholder="例如：我最近要不要换工作？这段关系未来三个月会如何发展？"></textarea>
-			</div>
-
-			<div class="field-group" style="margin-top: 18px;">
-				<div class="field-label">主题聚焦</div>
-				<div class="chip-row" id="focusChips" data-auth-required="true" data-auth-label="选择主题聚焦"></div>
-			</div>
-
-			<div class="field-group" style="margin-top: 18px;">
-				<div class="field-label">选择牌阵</div>
-				<div class="spread-row" id="spreadOptions" data-auth-required="true" data-auth-label="选择牌阵"></div>
-			</div>
-
-			<div class="status-strip" style="margin-top: 18px;">
-				<span id="selectionSummary">当前牌阵：单牌启示 · 需要抽 1 张</span>
-				<span class="status-pill" id="engineBadge">AI 深度解读</span>
-			</div>
-		</section>
-
-		<section class="panel ritual-board">
-			<div class="section-kicker">Step 1 · 切牌</div>
-			<div style="display:grid; gap:6px; margin-top:6px;">
-				<h2 style="font-size: 38px;">先切开牌堆，让问题沉进仪式</h2>
-				<div style="color: var(--ink-soft); font-size: 14px; line-height: 1.7;">至少完成 4 次明显切牌后，整副牌才会真正苏醒。等能量稳定下来，再进入下一步抽牌。</div>
-			</div>
-
-			<div class="deck-stage" id="deckStage" data-auth-required="true" data-auth-label="开始切牌仪式">
-				<div class="constellation"></div>
-				<div class="ritual-particles" id="ritualParticles"></div>
-				<div class="deck-stack">
-					<div class="deck-shadow"></div>
-					<div class="deck-card layer-1"></div>
-					<div class="deck-card layer-2"></div>
-					<div class="deck-card layer-3"></div>
-					<div class="drag-card drag-copy"></div>
-					<div class="drag-card" id="dragCard" aria-label="拖动牌堆顶部的牌来划牌"></div>
+			<section class="panel ritual-progress-panel">
+				<div class="ritual-progress-intro">
+					<div class="section-kicker">Ritual Steps</div>
+					<h3 style="font-size: 30px; margin: 0;">按步骤完成这次占卜</h3>
+					<p>首页默认先显示占卜流程。只有当你真正点击需要身份或积分的动作时，才会跳到登录 / 注册页面。</p>
 				</div>
-				<div class="deck-instruction">
-					<span id="deckHint">向左或向右划出卡牌，完成洗牌仪式</span>
-					<span id="shuffleCounter">0 / 4</span>
-				</div>
-			</div>
+				<div class="ritual-progress-nav" id="ritualProgressNav"></div>
+			</section>
 
-			<div class="energy-wrap">
-				<div class="status-strip">
-					<span id="energyText">仪式能量尚未稳定，继续划牌。</span>
-					<span class="status-pill" id="drawStatus">等待洗牌</span>
-				</div>
-				<div class="energy-bar"><span id="energyBar"></span></div>
-			</div>
-			<div class="reveal-note" id="revealNote">抽中的牌会先隐藏，等整组牌阵完成后，再连同正位或逆位一起揭晓。</div>
-
-			<div class="actions" style="margin-top: 18px;">
-				<button class="primary-button" id="prepareButton" data-auth-required="true" data-auth-label="展开 78 张轮盘" disabled>展开 78 张轮盘</button>
-				<button class="ghost-button" id="resetButton" data-auth-required="true" data-auth-label="重新开始占卜">重新开始</button>
-			</div>
-
-			<div id="candidatePanel" class="hidden" style="margin-top: 18px;">
-				<div class="section-kicker">Step 2 · 抽牌</div>
-				<div class="status-strip">
-					<span id="candidateHint">左右滑动 78 张牌组成的轮盘，让想选的牌停在中央后再选中。</span>
-					<span class="status-pill" id="drawProgress">已抽 0 张</span>
-				</div>
-				<div class="wheel-shell">
-					<button class="ghost-button wheel-nav" id="wheelPrevButton" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="向左拨动轮盘">&#8249;</button>
-					<div class="wheel-stage" id="wheelStage" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="78 张塔罗牌轮盘，可左右滑动切换当前牌">
-						<div class="candidate-row" id="candidateRow"></div>
-						<div class="wheel-center-marker"></div>
+			<div class="ritual-step-view" id="setupStepView">
+				<section class="panel panel-body">
+					<div class="ritual-step-header">
+						<div>
+							<div class="section-kicker">Step 0 · 准备问题</div>
+							<h2 style="font-size: 38px; margin-top: 6px;">先定问题，再进入仪式</h2>
+							<p>这里先整理你要问的事、主题聚焦和牌阵规格。确定之后再进入切牌页，不会把所有操作一次性摊开。</p>
+						</div>
+						<div class="status-pill" id="engineBadge">AI 深度解读</div>
 					</div>
-					<button class="ghost-button wheel-nav" id="wheelNextButton" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="向右拨动轮盘">&#8250;</button>
-				</div>
-				<div class="focus-card" id="focusCardDetails"></div>
-				<div class="actions wheel-actions">
-					<button class="primary-button" id="selectFocusedButton" data-auth-required="true" data-auth-label="抽取当前牌">选中当前牌</button>
-					<button class="ghost-button" id="randomSpinButton" data-auth-required="true" data-auth-label="随机转动轮盘">随机转动轮盘</button>
-				</div>
-			</div>
-		</section>
 
-		<section class="panel panel-body">
-			<div class="section-kicker">Step 3 · 牌阵落位</div>
-			<div style="display:grid; gap:6px; margin-top:6px;">
-				<h2 style="font-size: 38px;">抽满后在这里手动揭牌</h2>
-				<div id="spreadDescription" style="color: var(--ink-soft); font-size: 14px; line-height: 1.7;"></div>
-			</div>
-			<div class="positions-grid single" id="positionsGrid" data-auth-required="true" data-auth-label="揭开牌阵" style="margin-top: 18px;"></div>
-			<div class="actions reveal-actions hidden" id="revealActions">
-				<button class="primary-button" id="startReadingButton" data-auth-required="true" data-auth-label="开始解读牌阵" disabled>开始解读</button>
-			</div>
-		</section>
+					<div class="field-group" style="margin-top: 18px;">
+						<div class="field-label">你的问题</div>
+						<textarea id="questionInput" data-auth-required="true" data-auth-label="填写你的问题" placeholder="例如：我最近要不要换工作？这段关系未来三个月会如何发展？"></textarea>
+					</div>
 
-		<section class="panel panel-body" id="readingPanel">
-			<div class="reading-header">
-				<div>
-					<div class="section-kicker">Step 4 · 解读</div>
-					<h2 style="font-size: 38px; margin-top: 6px;">详细结果区</h2>
-					<p id="readingIntro">等你把整组牌一张一张翻完，再点击开始解读，这里只展示 AI 详解结果。</p>
-				</div>
-				<div class="status-pill" id="readingStatus">等待抽牌</div>
+					<div class="field-group" style="margin-top: 18px;">
+						<div class="field-label">主题聚焦</div>
+						<div class="chip-row" id="focusChips" data-auth-required="true" data-auth-label="选择主题聚焦"></div>
+					</div>
+
+					<div class="field-group" style="margin-top: 18px;">
+						<div class="field-label">选择牌阵</div>
+						<div class="spread-row" id="spreadOptions" data-auth-required="true" data-auth-label="选择牌阵"></div>
+					</div>
+
+					<div class="status-strip" style="margin-top: 18px;">
+						<span id="selectionSummary">当前牌阵：单牌启示 · 需要抽 1 张</span>
+						<span class="status-pill">下一页进入切牌仪式</span>
+					</div>
+
+					<div class="actions" style="margin-top: 18px; grid-template-columns: 1fr;">
+						<button class="primary-button" id="setupStartButton" data-auth-required="true" data-auth-label="进入切牌步骤">进入 Step 1 · 切牌</button>
+					</div>
+				</section>
 			</div>
 
-			<div id="apiResultView" class="markdown-block hidden" style="margin-top: 18px;"></div>
-		</section>
+			<div class="ritual-step-view hidden" id="shuffleStepView">
+				<section class="panel ritual-board">
+					<div class="ritual-step-header">
+						<div>
+							<div class="section-kicker">Step 1 · 切牌</div>
+							<h2 style="font-size: 38px; margin-top: 6px;">先切开牌堆，让问题沉进仪式</h2>
+							<p>至少完成 4 次明显切牌后，整副牌才会真正苏醒。等能量稳定下来，再切换到下一页抽牌。</p>
+						</div>
+						<div class="status-pill" id="drawStatus">等待洗牌</div>
+					</div>
+
+					<div class="deck-stage" id="deckStage" data-auth-required="true" data-auth-label="开始切牌仪式">
+						<div class="constellation"></div>
+						<div class="shuffle-gesture-hint" id="shuffleGestureHint" aria-hidden="true">
+							<div class="shuffle-gesture-track">
+								<div class="shuffle-gesture-glow"></div>
+								<div class="shuffle-gesture-hand"></div>
+							</div>
+							<div class="shuffle-gesture-caption">像这样左右划动牌堆</div>
+						</div>
+						<div class="ritual-particles" id="ritualParticles"></div>
+						<div class="deck-stack">
+							<div class="deck-shadow"></div>
+							<div class="deck-card layer-1"></div>
+							<div class="deck-card layer-2"></div>
+							<div class="deck-card layer-3"></div>
+							<div class="drag-card drag-copy"></div>
+							<div class="drag-card" id="dragCard" aria-label="拖动牌堆顶部的牌来划牌"></div>
+						</div>
+						<div class="deck-instruction">
+							<span id="deckHint">向左或向右划出卡牌，完成洗牌仪式</span>
+							<span id="shuffleCounter">0 / 4</span>
+						</div>
+					</div>
+
+					<div class="energy-wrap">
+						<div class="status-strip">
+							<span id="energyText">仪式能量尚未稳定，继续划牌。</span>
+							<span class="status-pill">继续切牌</span>
+						</div>
+						<div class="energy-bar"><span id="energyBar"></span></div>
+					</div>
+					<div class="reveal-note" id="revealNote">抽中的牌会先隐藏，等整组牌阵完成后，再连同正位或逆位一起揭晓。</div>
+
+					<div class="actions" style="margin-top: 18px;">
+						<button class="ghost-button" id="toSetupButton" type="button">返回上一步</button>
+						<button class="primary-button" id="prepareButton" data-auth-required="true" data-auth-label="进入抽牌步骤" disabled>进入 Step 2 · 抽牌</button>
+					</div>
+				</section>
+			</div>
+
+			<div class="ritual-step-view hidden" id="drawStepView">
+				<section class="panel ritual-board hidden" id="candidatePanel">
+					<div class="ritual-step-header">
+						<div>
+							<div class="section-kicker">Step 2 · 抽牌</div>
+							<h2 style="font-size: 38px; margin-top: 6px;">在轮盘里锁定你的牌</h2>
+							<p>左右滑动 78 张牌的轮盘，把想选的牌停在中央后再锁定。抽满后会自动切到揭牌页。</p>
+						</div>
+						<div class="status-pill" id="drawProgress">已抽 0 张</div>
+					</div>
+					<div class="status-strip">
+						<span id="candidateHint">左右滑动 78 张牌组成的轮盘，让想选的牌停在中央后再选中。</span>
+						<span class="status-pill">轮盘锁定中</span>
+					</div>
+					<div class="wheel-shell">
+						<button class="ghost-button wheel-nav" id="wheelPrevButton" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="向左拨动轮盘">&#8249;</button>
+						<div class="wheel-stage" id="wheelStage" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="78 张塔罗牌轮盘，可左右滑动切换当前牌">
+							<div class="candidate-row" id="candidateRow"></div>
+							<div class="wheel-center-marker"></div>
+						</div>
+						<button class="ghost-button wheel-nav" id="wheelNextButton" data-auth-required="true" data-auth-label="拨动塔罗轮盘" aria-label="向右拨动轮盘">&#8250;</button>
+					</div>
+					<div class="focus-card" id="focusCardDetails"></div>
+					<div class="actions wheel-actions">
+						<button class="ghost-button" id="drawBackButton" type="button">返回切牌页</button>
+						<button class="primary-button" id="selectFocusedButton" data-auth-required="true" data-auth-label="抽取当前牌">选中当前牌</button>
+					</div>
+					<div class="actions wheel-actions" style="margin-top: 10px;">
+						<button class="ghost-button" id="resetButton" data-auth-required="true" data-auth-label="重新开始占卜">重新开始</button>
+						<button class="ghost-button" id="randomSpinButton" data-auth-required="true" data-auth-label="随机转动轮盘">随机转动轮盘</button>
+					</div>
+				</section>
+			</div>
+
+			<div class="ritual-step-view hidden" id="revealStepView">
+				<section class="panel panel-body">
+					<div class="ritual-step-header">
+						<div>
+							<div class="section-kicker">Step 3 · 牌阵落位</div>
+							<h2 style="font-size: 38px; margin-top: 6px;">抽满后在这里手动揭牌</h2>
+							<p id="spreadDescription">整组牌抽完以后，在这一页逐张翻开，确认每个牌位的正位或逆位。</p>
+						</div>
+						<div class="status-pill" id="revealStepBadge">等待揭牌</div>
+					</div>
+					<div class="positions-grid single" id="positionsGrid" data-auth-required="true" data-auth-label="揭开牌阵" style="margin-top: 18px;"></div>
+					<div class="actions reveal-actions hidden" id="revealActions">
+						<button class="ghost-button" id="revealResetButton" type="button">重新开始</button>
+						<button class="primary-button" id="startReadingButton" data-auth-required="true" data-auth-label="开始解读牌阵" disabled>开始解读</button>
+					</div>
+				</section>
+			</div>
+
+			<div class="ritual-step-view hidden" id="readingStepView">
+				<section class="panel panel-body hidden" id="readingPanel">
+					<div class="reading-header">
+						<div>
+							<div class="section-kicker">Step 4 · 解读</div>
+							<h2 style="font-size: 38px; margin-top: 6px;">详细结果区</h2>
+							<p id="readingIntro">等你把整组牌一张一张翻完，再点击开始解读，这里只展示 AI 详解结果。</p>
+						</div>
+						<div class="status-pill" id="readingStatus">等待抽牌</div>
+					</div>
+
+					<div id="apiResultView" class="markdown-block hidden" style="margin-top: 18px;"></div>
+				</section>
+				<div class="actions" style="grid-template-columns: 1fr;">
+					<button class="ghost-button" id="readingResetButton" type="button">重新开始新一轮占卜</button>
+				</div>
+			</div>
 
 			<div class="footer-note">当前版本支持手机端洗牌、轮盘抽牌、手动揭牌与完整解读。Windows 下运行 start-server.cmd 或 node server.js，然后打开 http://localhost:3000。</div>
 		</div>
@@ -2066,8 +2336,15 @@
 		const focusChips = document.getElementById('focusChips');
 		const tarotScreen = document.getElementById('tarotScreen');
 		const accountScreen = document.getElementById('accountScreen');
+		const ritualProgressNav = document.getElementById('ritualProgressNav');
+		const setupStepView = document.getElementById('setupStepView');
+		const shuffleStepView = document.getElementById('shuffleStepView');
+		const drawStepView = document.getElementById('drawStepView');
+		const revealStepView = document.getElementById('revealStepView');
+		const readingStepView = document.getElementById('readingStepView');
 		const openAccountButton = document.getElementById('openAccountButton');
 		const backToTarotButton = document.getElementById('backToTarotButton');
+		const setupStartButton = document.getElementById('setupStartButton');
 		const tarotUserBadge = document.getElementById('tarotUserBadge');
 		const accountScreenBadge = document.getElementById('accountScreenBadge');
 		const authPanel = document.getElementById('authPanel');
@@ -2098,6 +2375,7 @@
 		const positionsGrid = document.getElementById('positionsGrid');
 		const deckStage = document.getElementById('deckStage');
 		const dragCard = document.getElementById('dragCard');
+		const shuffleGestureHint = document.getElementById('shuffleGestureHint');
 		const ritualParticles = document.getElementById('ritualParticles');
 		const shuffleCounter = document.getElementById('shuffleCounter');
 		const deckHint = document.getElementById('deckHint');
@@ -2118,11 +2396,16 @@
 		const drawProgress = document.getElementById('drawProgress');
 		const candidateHint = document.getElementById('candidateHint');
 		const revealActions = document.getElementById('revealActions');
+		const toSetupButton = document.getElementById('toSetupButton');
+		const drawBackButton = document.getElementById('drawBackButton');
+		const revealResetButton = document.getElementById('revealResetButton');
+		const revealStepBadge = document.getElementById('revealStepBadge');
 		const startReadingButton = document.getElementById('startReadingButton');
 		const apiResultView = document.getElementById('apiResultView');
 		const readingPanel = document.getElementById('readingPanel');
 		const readingStatus = document.getElementById('readingStatus');
 		const readingIntro = document.getElementById('readingIntro');
+		const readingResetButton = document.getElementById('readingResetButton');
 		const questionInput = document.getElementById('questionInput');
 		const accountDashboard = document.getElementById('accountDashboard');
 		const accountIntro = document.getElementById('accountIntro');
@@ -2150,7 +2433,19 @@
 		};
 
 		const screenState = {
-			current: 'account'
+			current: 'tarot'
+		};
+
+		const ritualSteps = [
+			{ id: 'setup', title: '准备问题', desc: '问题、主题和牌阵' },
+			{ id: 'shuffle', title: '切牌', desc: '完成四次切洗' },
+			{ id: 'draw', title: '抽牌', desc: '轮盘锁定牌序' },
+			{ id: 'reveal', title: '揭牌', desc: '逐张翻开牌位' },
+			{ id: 'reading', title: '解读', desc: '查看 AI 结果' }
+		];
+
+		const ritualState = {
+			current: 'setup'
 		};
 
 		const MUSIC_STORAGE_KEY = 'tarot-ambient-music';
@@ -2187,7 +2482,7 @@
 			musicToggleLabel.textContent = audioState.enabled
 				? (playing ? '关闭氛围音' : '唤醒氛围音')
 				: '开启氛围音';
-			musicToggleState.textContent = playing ? '播放中' : '静音';
+			musicToggleState.textContent = playing ? '播放中' : (audioState.enabled ? '待唤醒' : '静音');
 		}
 
 		function createNoiseBuffer(audioContext) {
@@ -2363,6 +2658,9 @@
 			await startAmbientMusic();
 			if (audioState.context?.state === 'running') {
 				document.removeEventListener('pointerdown', wakeAmbientMusicFromGesture, true);
+				document.removeEventListener('touchstart', wakeAmbientMusicFromGesture, true);
+				document.removeEventListener('touchend', wakeAmbientMusicFromGesture, true);
+				document.removeEventListener('click', wakeAmbientMusicFromGesture, true);
 				document.removeEventListener('keydown', wakeAmbientMusicFromGesture, true);
 				audioState.wakeHandlerBound = false;
 			}
@@ -2373,6 +2671,9 @@
 				return;
 			}
 			document.addEventListener('pointerdown', wakeAmbientMusicFromGesture, true);
+			document.addEventListener('touchstart', wakeAmbientMusicFromGesture, true);
+			document.addEventListener('touchend', wakeAmbientMusicFromGesture, true);
+			document.addEventListener('click', wakeAmbientMusicFromGesture, true);
 			document.addEventListener('keydown', wakeAmbientMusicFromGesture, true);
 			audioState.wakeHandlerBound = true;
 		}
@@ -2381,7 +2682,6 @@
 			const viewingTarot = screenState.current === 'tarot';
 			tarotScreen.classList.toggle('hidden', !viewingTarot);
 			accountScreen.classList.toggle('hidden', viewingTarot);
-			backToTarotButton.disabled = !authState.user;
 			tarotUserBadge.textContent = authState.user
 				? `${authState.user.username} · ${authState.user.credits || 0} 积分`
 				: '未登录';
@@ -2389,19 +2689,68 @@
 			openAccountButton.textContent = authState.user ? '个人账户' : '登录 / 注册';
 		}
 
-		function setScreen(nextScreen, options = {}) {
-			if (nextScreen === 'tarot' && !authState.user && !options.force) {
-				authState.open = true;
-				authState.tab = 'login';
-				setAuthMessage('请先登录或注册，再返回占卜界面。', 'error');
-				screenState.current = 'account';
-				renderAuth();
-				setTimeout(() => loginEmail.focus(), 0);
+		function setScreen(nextScreen) {
+			screenState.current = nextScreen;
+			renderAuth();
+			return true;
+		}
+
+		function canEnterRitualStep(stepId) {
+			switch (stepId) {
+				case 'setup':
+				case 'shuffle':
+					return true;
+				case 'draw':
+					return state.prepared;
+				case 'reveal':
+					return isRevealReady();
+				case 'reading':
+					return Boolean(state.apiMarkdown);
+				default:
+					return false;
+			}
+		}
+
+		function getRitualStepIndex(stepId) {
+			return ritualSteps.findIndex((step) => step.id === stepId);
+		}
+
+		function renderRitualStep() {
+			const viewMap = {
+				setup: setupStepView,
+				shuffle: shuffleStepView,
+				draw: drawStepView,
+				reveal: revealStepView,
+				reading: readingStepView
+			};
+
+			Object.entries(viewMap).forEach(([stepId, element]) => {
+				element.classList.toggle('hidden', ritualState.current !== stepId);
+			});
+
+			const currentIndex = getRitualStepIndex(ritualState.current);
+			ritualProgressNav.innerHTML = ritualSteps.map((step, index) => {
+				const isCurrent = step.id === ritualState.current;
+				const isUnlocked = canEnterRitualStep(step.id);
+				const isDone = isUnlocked && index < currentIndex;
+				const statusClass = isCurrent ? 'active' : (isDone ? 'done' : (isUnlocked ? 'ready' : 'locked'));
+				const disabled = (!isUnlocked && step.id !== 'shuffle') || isCurrent;
+				return `
+					<button class="ritual-progress-button ${statusClass}" type="button" data-step-nav="${step.id}" ${disabled ? 'disabled' : ''}>
+						<strong>${index}. ${step.title}</strong>
+						<span>${step.desc}</span>
+					</button>
+				`;
+			}).join('');
+		}
+
+		function setRitualStep(nextStep, options = {}) {
+			if (!options.force && !canEnterRitualStep(nextStep)) {
 				return false;
 			}
 
-			screenState.current = nextScreen;
-			renderAuth();
+			ritualState.current = nextStep;
+			renderRitualStep();
 			return true;
 		}
 
@@ -2686,14 +3035,14 @@
 				const data = await requestJson(AUTH_ENDPOINTS.session, { method: 'GET' });
 				authState.user = data.user || null;
 				await loadAccountData();
-				setScreen(authState.user ? 'tarot' : 'account', { force: true });
+				setScreen('tarot');
 			} catch {
 				authState.user = null;
 				clearAccountState();
 				renderAccountDashboard();
 				renderAdminDashboard();
 				renderAuth();
-				setScreen('account', { force: true });
+				setScreen('tarot');
 			}
 		}
 
@@ -2715,7 +3064,7 @@
 				loginForm.reset();
 				clearAuthMessage();
 				await loadAccountData();
-				setScreen('account', { force: true });
+				setScreen('tarot');
 			} catch (error) {
 				setAuthMessage(error.message, 'error');
 				authState.open = true;
@@ -2744,7 +3093,7 @@
 				registerForm.reset();
 				clearAuthMessage();
 				await loadAccountData();
-				setScreen('account', { force: true });
+				setScreen('tarot');
 			} catch (error) {
 				setAuthMessage(error.message, 'error');
 				authState.open = true;
@@ -2766,7 +3115,7 @@
 				renderAccountDashboard();
 				renderAdminDashboard();
 				renderAuth();
-				setScreen('account', { force: true });
+				setScreen('tarot');
 			} catch (error) {
 				setAuthMessage(error.message, 'error');
 			} finally {
@@ -2863,6 +3212,7 @@
 			const revealReady = isRevealReady();
 			selectionSummary.textContent = `当前牌阵：${spread.name} · 需要抽 ${spread.drawCount} 张`;
 			spreadDescription.textContent = spread.summary;
+			revealStepBadge.textContent = areAllCardsFlipped() ? '可开始解读' : (revealReady ? '等待逐张翻开' : '等待抽满牌阵');
 			positionsGrid.className = `positions-grid ${state.spread}`;
 			revealActions.classList.toggle('hidden', !revealReady);
 			startReadingButton.disabled = !areAllCardsFlipped();
@@ -2912,6 +3262,7 @@
 			const progress = Math.min(state.shuffleCount / state.shuffleTarget, 1);
 			shuffleCounter.textContent = `${state.shuffleCount} / ${state.shuffleTarget}`;
 			energyBar.style.width = `${progress * 100}%`;
+			shuffleGestureHint.classList.toggle('hidden', state.shuffleCount > 0 || state.prepared);
 			revealNote.textContent = isRevealReady()
 				? areAllCardsFlipped()
 					? '整组牌已经翻完，现在可以点击开始解读。'
@@ -2922,11 +3273,13 @@
 				deckHint.innerHTML = '洗牌已完成，现在可以<span class="shuffle-emphasis">展开 78 张轮盘</span>。';
 				energyText.textContent = '牌堆能量已经稳定，轮盘会保留这次切洗后的随机秩序。';
 				drawStatus.textContent = '可抽牌';
+				prepareButton.textContent = state.prepared ? '继续 Step 2 · 抽牌' : '进入 Step 2 · 抽牌';
 				prepareButton.disabled = false;
 			} else {
 				deckHint.innerHTML = '在牌堆区域横向切洗，连续划动会触发<span class="shuffle-emphasis">能量脉冲</span>';
 				energyText.textContent = state.shuffleCount === 0 ? '先用手指在牌堆上做第一次切洗，让牌阵开始流动。' : '切洗越流畅，仪式感越强；再来几次就能唤醒整副牌。';
 				drawStatus.textContent = '等待洗牌';
+				prepareButton.textContent = '进入 Step 2 · 抽牌';
 				prepareButton.disabled = true;
 			}
 		}
@@ -3128,6 +3481,7 @@
 			state.flippedPositions = [];
 			state.reading = null;
 			state.apiMarkdown = '';
+			state.lastReadingPayload = null;
 			cancelAnimationFrame(wheelAnimationId);
 			if (!options.keepDeck) {
 				state.deck = [];
@@ -3136,6 +3490,7 @@
 			renderCandidates();
 			renderReading();
 			updateShuffleUi();
+			setRitualStep(options.nextStep || 'setup', { force: true });
 		}
 
 		function handleFocusChange(nextFocus) {
@@ -3144,7 +3499,7 @@
 			}
 			state.focus = nextFocus;
 			renderFocusOptions();
-			resetSession();
+			resetSession({ nextStep: 'setup' });
 		}
 
 		function handleSpreadChange(nextSpread) {
@@ -3153,7 +3508,7 @@
 			}
 			state.spread = nextSpread;
 			renderSpreadOptions();
-			resetSession();
+			resetSession({ nextStep: 'setup' });
 		}
 
 		function createDraw(candidateIndex) {
@@ -3177,6 +3532,7 @@
 				renderCandidates();
 				renderSpreadBoard();
 				updateShuffleUi();
+				setRitualStep('reveal', { force: true });
 			} else {
 				renderCandidates();
 				renderSpreadBoard();
@@ -3586,6 +3942,7 @@
 			}
 			const payload = buildPayload();
 			state.lastReadingPayload = payload;
+			setRitualStep('reading', { force: true });
 			readingPanel.classList.remove('hidden');
 			readingStatus.textContent = '生成解读中';
 			readingIntro.textContent = '牌阵已经完成，正在生成 AI 详解。';
@@ -3658,6 +4015,7 @@
 				gesture.active = true;
 				gesture.startX = event.clientX;
 				gesture.currentX = 0;
+				shuffleGestureHint.classList.add('hidden');
 				dragCard.classList.add('dragging');
 				deckStage.setPointerCapture(event.pointerId);
 			};
@@ -3689,6 +4047,9 @@
 						resetCardPosition();
 					}, 150);
 				} else {
+					if (state.shuffleCount === 0) {
+						shuffleGestureHint.classList.remove('hidden');
+					}
 					resetCardPosition();
 				}
 			};
@@ -3698,11 +4059,37 @@
 			deckStage.addEventListener('pointerup', onPointerUp);
 			deckStage.addEventListener('pointercancel', () => {
 				gesture.active = false;
+				if (state.shuffleCount === 0) {
+					shuffleGestureHint.classList.remove('hidden');
+				}
 				resetCardPosition();
 			});
 		}
 
 		function bindEvents() {
+			setupStartButton.addEventListener('click', () => {
+				if (!requireAuth('进入切牌步骤')) {
+					return;
+				}
+				setRitualStep('shuffle', { force: true });
+			});
+
+			toSetupButton.addEventListener('click', () => {
+				setRitualStep('setup', { force: true });
+			});
+
+			drawBackButton.addEventListener('click', () => {
+				setRitualStep('shuffle', { force: true });
+			});
+
+			revealResetButton.addEventListener('click', () => {
+				resetSession({ nextStep: 'setup' });
+			});
+
+			readingResetButton.addEventListener('click', () => {
+				resetSession({ nextStep: 'setup' });
+			});
+
 			musicToggleButton.addEventListener('click', async () => {
 				await toggleAmbientMusic();
 			});
@@ -3789,6 +4176,14 @@
 				handleRecharge(Number(button.dataset.rechargeCredits));
 			});
 
+			ritualProgressNav.addEventListener('click', (event) => {
+				const button = event.target.closest('[data-step-nav]');
+				if (!button) {
+					return;
+				}
+				setRitualStep(button.dataset.stepNav);
+			});
+
 			focusChips.addEventListener('click', (event) => {
 				const button = event.target.closest('[data-focus]');
 				if (button) {
@@ -3813,10 +4208,11 @@
 				renderSpreadBoard();
 				renderReading();
 				updateShuffleUi();
+				setRitualStep('draw', { force: true });
 			});
 
 			resetButton.addEventListener('click', () => {
-				resetSession();
+				resetSession({ nextStep: 'setup' });
 			});
 
 			candidateRow.addEventListener('click', (event) => {
@@ -3863,22 +4259,12 @@
 					generateReading();
 				}
 			});
-
-			[endpointInput, modelInput, apiKeyInput, systemPromptInput].forEach((element) => {
-				element.addEventListener('change', saveApiSettings);
-				element.addEventListener('blur', saveApiSettings);
-			});
 		}
 
 		function init() {
 			loadMusicPreference();
 			updateMusicToggle();
 			bindAmbientWakeHandler();
-			if (audioState.enabled) {
-				startAmbientMusic().catch(() => {
-					updateMusicToggle();
-				});
-			}
 			renderAuth();
 			renderAccountDashboard();
 			renderAdminDashboard();
@@ -3888,6 +4274,7 @@
 			renderSpreadOptions();
 			renderSpreadBoard();
 			renderReading();
+			renderRitualStep();
 			updateShuffleUi();
 			initializeDragGesture();
 			initializeWheelGesture();
