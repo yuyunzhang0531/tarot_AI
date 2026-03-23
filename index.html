@@ -2729,6 +2729,104 @@
 			current: 'intro'
 		};
 
+		const ritualViewMap = {
+			intro: introStepView,
+			setup: setupStepView,
+			shuffle: shuffleStepView,
+			draw: drawStepView,
+			reveal: revealStepView,
+			reading: readingStepView
+		};
+
+		function renderScreen() {
+			const currentScreen = screenState.current === 'account' ? 'account' : 'tarot';
+			accountScreen.classList.toggle('hidden', currentScreen !== 'account');
+			tarotScreen.classList.toggle('hidden', currentScreen !== 'tarot');
+
+			const userLabel = authState.user ? `${authState.user.username || authState.user.email}` : '未登录';
+			tarotUserBadge.textContent = userLabel;
+			accountScreenBadge.textContent = userLabel;
+		}
+
+		function setScreen(nextScreen, options = {}) {
+			const normalizedScreen = nextScreen === 'account' ? 'account' : 'tarot';
+			if (!options.force && screenState.current === normalizedScreen) {
+				renderScreen();
+				return;
+			}
+
+			screenState.current = normalizedScreen;
+			renderScreen();
+		}
+
+		function getRitualStepIndex(stepId) {
+			if (stepId === 'intro') {
+				return -1;
+			}
+			return ritualSteps.findIndex((step) => step.id === stepId);
+		}
+
+		function canEnterRitualStep(stepId) {
+			switch (stepId) {
+				case 'intro':
+				case 'setup':
+					return true;
+				case 'shuffle':
+					return Boolean(questionInput.value.trim());
+				case 'draw':
+					return state.shuffleCount >= state.shuffleTarget;
+				case 'reveal':
+					return isRevealReady();
+				case 'reading':
+					return areAllCardsFlipped() || Boolean(state.apiMarkdown);
+				default:
+					return false;
+			}
+		}
+
+		function renderRitualStep() {
+			Object.entries(ritualViewMap).forEach(([stepId, view]) => {
+				view.classList.toggle('hidden', ritualState.current !== stepId);
+			});
+
+			const currentIndex = getRitualStepIndex(ritualState.current);
+			ritualProgressNav.innerHTML = ritualSteps.map((step, index) => {
+				const isActive = ritualState.current === step.id;
+				const isDone = currentIndex > index;
+				const isLocked = !isDone && !isActive && !canEnterRitualStep(step.id);
+				return `
+					<button
+						class="ritual-progress-button ${isActive ? 'active' : ''} ${isDone ? 'done' : ''} ${isLocked ? 'locked' : ''}"
+						type="button"
+						data-step-nav="${step.id}"
+						${isLocked ? 'disabled' : ''}
+					>
+						<strong>${index}. ${step.title}</strong>
+						<span>${step.desc}</span>
+					</button>
+				`;
+			}).join('');
+
+			ritualProgressNav.querySelectorAll('[data-step-nav]').forEach((button) => {
+				button.addEventListener('click', () => {
+					setRitualStep(button.dataset.stepNav);
+				});
+			});
+		}
+
+		function setRitualStep(nextStep, options = {}) {
+			if (!ritualViewMap[nextStep]) {
+				return;
+			}
+
+			if (!options.force && !canEnterRitualStep(nextStep)) {
+				return;
+			}
+
+			ritualState.current = nextStep;
+			renderRitualStep();
+		}
+
 		function getAuthActionLabel(target) {
 			if (!target) {
 				return '使用塔罗功能';
@@ -3220,6 +3318,25 @@
 					</div>
 				`;
 			}).join('');
+		}
+
+		function updateSetupStepUi() {
+			const spread = spreads[state.spread];
+			const focus = focusOptions.find((option) => option.id === state.focus);
+			const hasQuestion = Boolean(questionInput.value.trim());
+
+			selectionSummary.textContent = `当前牌阵：${spread.name} · 需要抽 ${spread.drawCount} 张`;
+			setupNextButton.disabled = !hasQuestion;
+
+			if (!hasQuestion) {
+				setupNextButton.textContent = '先写下问题再进入 Step 1';
+				return;
+			}
+
+			setupNextButton.textContent = '下一步 · Step 1 切牌';
+			if (focus) {
+				selectionSummary.textContent = `当前聚焦：${focus.title} · 牌阵：${spread.name} · 需要抽 ${spread.drawCount} 张`;
+			}
 		}
 
 		function updateShuffleUi() {
