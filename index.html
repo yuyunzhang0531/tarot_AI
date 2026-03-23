@@ -90,227 +90,10 @@
 		.auth-head {
 			display: flex;
 			align-items: center;
-			justify-content: flex-end;
-		}
-
-		.auth-trigger {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			width: 100%;
-			padding: 9px 12px;
-			border-radius: 999px;
-			border: 1px solid rgba(255, 255, 255, 0.1);
-			background: rgba(255, 255, 255, 0.05);
-			color: var(--ink);
-			cursor: pointer;
-			transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
-		}
-
-		.auth-trigger:hover {
-			background: rgba(255, 255, 255, 0.08);
-			border-color: rgba(255, 206, 114, 0.28);
-		}
-
-		.auth-trigger:active {
-			transform: scale(0.99);
-		}
-
-		.auth-meta {
-			min-width: 0;
-			flex: 1;
-			display: grid;
-			gap: 2px;
-			text-align: right;
-		}
-
-		.auth-meta strong {
-			font-size: 12px;
-			letter-spacing: 0.08em;
-			text-transform: uppercase;
-			color: rgba(247, 241, 226, 0.86);
-		}
-
-		.auth-meta span {
-			font-size: 11px;
-			color: rgba(247, 241, 226, 0.6);
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		.auth-panel-body {
-			position: absolute;
-			top: calc(100% + 8px);
-			right: 0;
-			width: min(92vw, 320px);
-			padding: 14px;
-			border-radius: 22px;
-			background: linear-gradient(180deg, rgba(9, 38, 44, 0.96), rgba(4, 21, 25, 0.96));
-			border: 1px solid rgba(255, 255, 255, 0.09);
-			box-shadow: 0 22px 52px rgba(0, 0, 0, 0.34);
-			z-index: 120;
-		}
-
-		.hero,
-		.panel-body,
-		.ritual-board {
-			z-index: 1;
-		}
-
-		.auth-panel.is-open .auth-trigger {
-			background: rgba(255, 255, 255, 0.08);
-			border-color: rgba(255, 206, 114, 0.24);
-		}
-
-		.auth-status {
-			font-size: 12px;
-			color: var(--ink-soft);
-			line-height: 1.6;
-		}
-
-		.auth-usercard {
-			display: flex;
-			align-items: center;
 			justify-content: space-between;
 			gap: 12px;
-			padding: 12px 14px;
-			border-radius: 16px;
-			background: rgba(255,255,255,0.045);
-			border: 1px solid rgba(255,255,255,0.08);
 		}
 
-		.auth-usercard h3 {
-			font-size: 18px;
-			line-height: 1.1;
-		}
-
-		.auth-tabs {
-			display: grid;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 8px;
-		}
-
-		.auth-form {
-			display: grid;
-			gap: 8px;
-		}
-
-		.auth-note {
-			font-size: 12px;
-			line-height: 1.6;
-			color: rgba(247, 241, 226, 0.62);
-		}
-
-		.auth-message {
-			padding: 8px 10px;
-			border-radius: 12px;
-			font-size: 12px;
-			line-height: 1.6;
-			background: rgba(255, 255, 255, 0.05);
-			border: 1px solid rgba(255, 255, 255, 0.08);
-		}
-
-		.auth-usermeta {
-			min-width: 0;
-			display: grid;
-			gap: 4px;
-		}
-
-		.auth-message.error {
-			color: #ffd1c8;
-			background: rgba(255, 142, 122, 0.12);
-			border-color: rgba(255, 142, 122, 0.22);
-		}
-
-		.auth-message.success {
-			color: #b8f0e8;
-			background: rgba(137, 208, 196, 0.12);
-			border-color: rgba(137, 208, 196, 0.24);
-		}
-
-		.eyebrow {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			padding: 6px 12px;
-			border-radius: 999px;
-			background: rgba(255, 206, 114, 0.12);
-			color: var(--accent-strong);
-			font-size: 12px;
-			letter-spacing: 0.12em;
-			text-transform: uppercase;
-		}
-
-		h1, h2, h3, h4 {
-			margin: 0;
-			font-family: 'Cormorant Garamond', serif;
-			line-height: 1.02;
-		}
-
-		h1 {
-			margin-top: 16px;
-			font-size: clamp(28px, 7.2vw, 46px);
-			font-weight: 700;
-			line-height: 1.08;
-			max-width: 10.5em;
-		}
-
-		.hero p {
-			margin: 14px 0 0;
-			color: var(--ink-soft);
-			font-size: 15px;
-			line-height: 1.75;
-		}
-
-		.hero-grid,
-		.panel-body {
-			padding: 20px;
-		}
-
-		.field-label,
-		.section-kicker,
-		.position-label,
-		.micro {
-			font-size: 12px;
-			letter-spacing: 0.08em;
-			text-transform: uppercase;
-			color: rgba(247, 241, 226, 0.6);
-		}
-
-		.field-group {
-			display: grid;
-			gap: 10px;
-		}
-
-		textarea,
-		input {
-			width: 100%;
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			background: rgba(3, 20, 24, 0.48);
-			color: var(--ink);
-			border-radius: 18px;
-			padding: 14px 16px;
-			font: inherit;
-			outline: none;
-			transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
-		}
-
-		textarea {
-			min-height: 112px;
-			resize: vertical;
-			line-height: 1.6;
-		}
-
-		textarea:focus,
-		input:focus {
-			border-color: rgba(255, 206, 114, 0.55);
-			background: rgba(3, 20, 24, 0.74);
-			transform: translateY(-1px);
-		}
-
-		.chip-row,
-		.spread-row,
 		.actions,
 		.insight-grid,
 		.api-grid,
@@ -1508,7 +1291,7 @@
 		}
 
 		#tarotScreen {
-			grid-template-rows: auto auto 1fr auto;
+			grid-template-rows: auto auto 1fr;
 			overflow: hidden;
 		}
 
@@ -1537,6 +1320,11 @@
 			letter-spacing: 0.08em;
 			text-transform: uppercase;
 			color: rgba(247, 241, 226, 0.86);
+		}
+
+		.tarot-topbar-main span {
+			font-size: 12px;
+			color: rgba(247, 241, 226, 0.58);
 		}
 
 		.ritual-progress-nav {
@@ -1590,8 +1378,11 @@
 
 		.ritual-step-view {
 			height: 100%;
-			overflow: auto;
-			padding-right: 2px;
+			overflow: hidden;
+		}
+
+		.ritual-step-view > section {
+			height: 100%;
 		}
 
 		.ritual-step-header {
@@ -1610,6 +1401,410 @@
 
 		.step-actions-inline {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.immersive-hero {
+			min-height: 100%;
+			padding: 26px 22px 22px;
+			background:
+				radial-gradient(circle at 50% 18%, rgba(255, 206, 114, 0.18), transparent 26%),
+				radial-gradient(circle at 50% 52%, rgba(183, 123, 40, 0.14), transparent 30%),
+				radial-gradient(circle at 20% 20%, rgba(137, 208, 196, 0.12), transparent 30%),
+				linear-gradient(180deg, rgba(5, 26, 32, 0.9), rgba(3, 14, 18, 0.96));
+		}
+
+		.immersive-hero::after {
+			content: '';
+			position: absolute;
+			inset: 18px;
+			border-radius: 24px;
+			border: 1px solid rgba(255, 255, 255, 0.05);
+			pointer-events: none;
+		}
+
+		.mystic-stage {
+			position: relative;
+			min-height: 100%;
+			display: grid;
+			grid-template-rows: auto auto 1fr auto;
+			gap: 18px;
+		}
+
+		.mystic-starfield,
+		.mystic-starfield::before,
+		.mystic-starfield::after {
+			position: absolute;
+			inset: 0;
+			pointer-events: none;
+		}
+
+		.mystic-starfield {
+			overflow: hidden;
+			opacity: 0.46;
+		}
+
+		.mystic-starfield::before,
+		.mystic-starfield::after {
+			content: '';
+			background-repeat: repeat;
+		}
+
+		.mystic-starfield::before {
+			background-image:
+				radial-gradient(circle at 12px 14px, rgba(255, 243, 220, 0.9) 0 1.2px, transparent 1.8px),
+				radial-gradient(circle at 54px 38px, rgba(255, 206, 114, 0.7) 0 1px, transparent 1.6px),
+				radial-gradient(circle at 90px 70px, rgba(137, 208, 196, 0.52) 0 1px, transparent 1.6px),
+				radial-gradient(circle at 150px 28px, rgba(255, 243, 220, 0.65) 0 1px, transparent 1.5px);
+			background-size: 180px 110px;
+			animation: starDrift 24s linear infinite;
+		}
+
+		.mystic-starfield::after {
+			background-image:
+				radial-gradient(circle at 30px 22px, rgba(255, 206, 114, 0.58) 0 0.9px, transparent 1.5px),
+				radial-gradient(circle at 76px 82px, rgba(255, 243, 220, 0.72) 0 1px, transparent 1.6px),
+				radial-gradient(circle at 132px 48px, rgba(137, 208, 196, 0.46) 0 0.9px, transparent 1.5px);
+			background-size: 160px 120px;
+			animation: starDriftSoft 32s linear infinite;
+			opacity: 0.7;
+		}
+
+		.mystic-stage::before {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 44%;
+			width: min(84vw, 360px);
+			height: min(84vw, 360px);
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			background: radial-gradient(circle, rgba(255, 206, 114, 0.12), rgba(137, 208, 196, 0.06) 45%, transparent 72%);
+			filter: blur(12px);
+			opacity: 0.9;
+			pointer-events: none;
+		}
+
+		.mystic-constellation {
+			position: absolute;
+			inset: 0;
+			pointer-events: none;
+			overflow: hidden;
+		}
+
+		.mystic-constellation::before,
+		.mystic-constellation::after {
+			content: '';
+			position: absolute;
+			border-radius: 50%;
+			border: 1px solid rgba(255, 255, 255, 0.06);
+		}
+
+		.mystic-constellation::before {
+			width: 220px;
+			height: 220px;
+			top: -90px;
+			left: -70px;
+		}
+
+		.mystic-constellation::after {
+			width: 260px;
+			height: 260px;
+			right: -120px;
+			bottom: -120px;
+		}
+
+		.mystic-copy {
+			position: relative;
+			z-index: 1;
+			display: grid;
+			gap: 14px;
+		}
+
+		.eyebrow {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			width: fit-content;
+			padding: 7px 12px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			font-size: 11px;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: rgba(247, 241, 226, 0.62);
+		}
+
+		.eyebrow::before,
+		.eyebrow::after {
+			content: '✦';
+			font-size: 10px;
+			color: rgba(255, 206, 114, 0.78);
+		}
+
+		.mystic-copy h1 {
+			margin: 2px 0 0;
+			display: grid;
+			gap: 6px;
+			max-width: 9em;
+			font-family: 'Cormorant Garamond', serif;
+			font-weight: 600;
+			line-height: 0.94;
+			letter-spacing: 0.02em;
+			color: #f8f2e7;
+			text-shadow: 0 10px 28px rgba(0, 0, 0, 0.26);
+		}
+
+		.mystic-title-top,
+		.mystic-title-bottom {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			flex-wrap: wrap;
+		}
+
+		.mystic-title-top {
+			font-size: clamp(34px, 9.2vw, 54px);
+		}
+
+		.mystic-title-bottom {
+			font-size: clamp(26px, 7vw, 40px);
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: rgba(255, 230, 186, 0.92);
+		}
+
+		.mystic-title-inline {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			white-space: nowrap;
+		}
+
+		.title-ornament {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: clamp(18px, 4.6vw, 24px);
+			line-height: 1;
+			filter: drop-shadow(0 0 10px rgba(255, 206, 114, 0.22));
+		}
+
+		.title-ornament.end {
+			font-size: clamp(14px, 4vw, 20px);
+			opacity: 0.9;
+		}
+
+		.title-ornament.trailing {
+			font-size: clamp(17px, 4.4vw, 22px);
+		}
+
+		.mystic-copy p {
+			margin: 0;
+			max-width: 32em;
+			color: rgba(247, 241, 226, 0.78);
+			font-size: 15px;
+			line-height: 1.9;
+		}
+
+		.mystic-orbit {
+			position: relative;
+			z-index: 1;
+			align-self: center;
+			justify-self: center;
+			width: min(74vw, 300px);
+			aspect-ratio: 1;
+			border-radius: 50%;
+			background:
+				radial-gradient(circle at center, rgba(255, 206, 114, 0.14), transparent 42%),
+				radial-gradient(circle at 50% 50%, rgba(255, 240, 211, 0.06), transparent 24%),
+				linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+			border: 1px solid rgba(255,255,255,0.08);
+			box-shadow: inset 0 0 48px rgba(255, 206, 114, 0.08), 0 24px 60px rgba(0, 0, 0, 0.32);
+			animation: orbitPulse 5.8s ease-in-out infinite;
+			pointer-events: none;
+		}
+
+		.mystic-stage .actions {
+			position: relative;
+			z-index: 2;
+		}
+
+		.mystic-orbit::before,
+		.mystic-orbit::after {
+			content: '';
+			position: absolute;
+			inset: 16px;
+			border-radius: 50%;
+			border: 1px solid rgba(255, 206, 114, 0.18);
+		}
+
+		.mystic-orbit::after {
+			inset: 50px;
+			border-color: rgba(137, 208, 196, 0.14);
+		}
+
+		.mystic-orbit-glow,
+		.mystic-orbit-dust {
+			position: absolute;
+			inset: 0;
+			border-radius: 50%;
+			pointer-events: none;
+		}
+
+		.mystic-orbit-glow {
+			background:
+				radial-gradient(circle at 50% 50%, rgba(255, 221, 166, 0.16), transparent 34%),
+				radial-gradient(circle at 30% 30%, rgba(137, 208, 196, 0.14), transparent 20%),
+				radial-gradient(circle at 72% 64%, rgba(255, 206, 114, 0.18), transparent 18%);
+			filter: blur(10px);
+			opacity: 0.9;
+		}
+
+		.mystic-orbit-dust::before,
+		.mystic-orbit-dust::after {
+			content: '';
+			position: absolute;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(255, 241, 214, 0.95), rgba(255, 241, 214, 0));
+			box-shadow: 0 0 18px rgba(255, 206, 114, 0.24);
+		}
+
+		.mystic-orbit-dust::before {
+			width: 12px;
+			height: 12px;
+			top: 24%;
+			left: 16%;
+			animation: driftSpark 7s ease-in-out infinite;
+		}
+
+		.mystic-orbit-dust::after {
+			width: 10px;
+			height: 10px;
+			right: 18%;
+			bottom: 20%;
+			animation: driftSpark 6.2s ease-in-out infinite reverse;
+		}
+
+		.mystic-card {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 118px;
+			height: 182px;
+			border-radius: 22px;
+			transform: translate(-50%, -50%);
+			background: linear-gradient(160deg, rgba(4, 18, 23, 0.96), rgba(10, 40, 47, 0.92));
+			border: 1px solid rgba(255,255,255,0.1);
+			box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+			animation: cardFloat 4.8s ease-in-out infinite;
+		}
+
+		.mystic-card::before {
+			content: '✦';
+			position: absolute;
+			inset: 0;
+			display: grid;
+			place-items: center;
+			font-family: 'Cormorant Garamond', serif;
+			font-size: 42px;
+			color: rgba(255, 206, 114, 0.82);
+		}
+
+		.mystic-card::after {
+			content: '';
+			position: absolute;
+			inset: 10px;
+			border-radius: 16px;
+			border: 1px solid rgba(255, 206, 114, 0.16);
+		}
+
+		.mystic-card.card-left {
+			transform: translate(calc(-50% - 62px), calc(-50% + 14px)) rotate(-12deg);
+			opacity: 0.72;
+			animation-delay: -1.4s;
+		}
+
+		.mystic-card.card-right {
+			transform: translate(calc(-50% + 62px), calc(-50% + 10px)) rotate(12deg);
+			opacity: 0.72;
+			animation-delay: -2.2s;
+		}
+
+		.mystic-invocation {
+			position: relative;
+			z-index: 1;
+			padding: 16px 18px;
+			border-radius: 20px;
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			color: rgba(247, 241, 226, 0.76);
+			font-size: 13px;
+			line-height: 1.95;
+		}
+
+		.mystic-invocation strong {
+			display: block;
+			margin-bottom: 8px;
+			font-family: 'Cormorant Garamond', serif;
+			font-size: 22px;
+			font-weight: 600;
+			color: rgba(255, 236, 200, 0.96);
+		}
+
+		.mystic-invocation span {
+			display: block;
+		}
+
+		#setupStartButton {
+			position: relative;
+			min-height: 58px;
+			border-radius: 999px;
+			padding: 0 24px;
+			background:
+				radial-gradient(circle at 50% 50%, rgba(255, 241, 214, 0.34), transparent 36%),
+				linear-gradient(135deg, #f6d58c, #bf7a31 72%);
+			color: #13262c;
+			box-shadow:
+				0 0 0 1px rgba(255, 227, 179, 0.26),
+				0 12px 32px rgba(212, 162, 76, 0.26),
+				0 0 26px rgba(255, 206, 114, 0.18);
+			overflow: hidden;
+			isolation: isolate;
+		}
+
+		#setupStartButton::before {
+			content: '';
+			position: absolute;
+			inset: 5px;
+			border-radius: inherit;
+			border: 1px solid rgba(255, 243, 220, 0.34);
+			opacity: 0.8;
+		}
+
+		#setupStartButton::after {
+			content: '✦';
+			position: absolute;
+			left: 16px;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 15px;
+			color: rgba(96, 54, 13, 0.86);
+			text-shadow: 0 0 10px rgba(255, 249, 236, 0.42);
+		}
+
+		#setupStartButton:hover:not(:disabled) {
+			transform: translateY(-2px) scale(1.01);
+			box-shadow:
+				0 0 0 1px rgba(255, 227, 179, 0.28),
+				0 16px 40px rgba(212, 162, 76, 0.3),
+				0 0 34px rgba(255, 206, 114, 0.24);
+		}
+
+		#setupStartButton span {
+			position: relative;
+			z-index: 1;
+			letter-spacing: 0.08em;
 		}
 
 		.screen-nav {
@@ -1657,27 +1852,6 @@
 			color: var(--ink-soft);
 			font-size: 13px;
 			line-height: 1.7;
-		}
-
-		.music-toggle {
-			position: relative;
-			z-index: 1;
-			min-height: 44px;
-			padding: 0 14px;
-			box-shadow: none;
-			background: rgba(5, 25, 30, 0.86);
-			backdrop-filter: blur(14px);
-			-webkit-backdrop-filter: blur(14px);
-		}
-
-		.music-toggle.active {
-			border-color: rgba(255, 206, 114, 0.3);
-			background: rgba(15, 36, 42, 0.9);
-		}
-
-		.music-toggle-label {
-			font-size: 13px;
-			letter-spacing: 0.04em;
 		}
 
 		.recharge-layout {
@@ -1794,9 +1968,60 @@
 			}
 		}
 
+		@keyframes orbitPulse {
+			0%,
+			100% {
+				transform: scale(0.98);
+				box-shadow: inset 0 0 48px rgba(255, 206, 114, 0.08), 0 24px 60px rgba(0, 0, 0, 0.32);
+			}
+			50% {
+				transform: scale(1.02);
+				box-shadow: inset 0 0 56px rgba(255, 206, 114, 0.12), 0 28px 72px rgba(0, 0, 0, 0.36);
+			}
+		}
+
+		@keyframes cardFloat {
+			0%,
+			100% {
+				margin-top: 0;
+			}
+			50% {
+				margin-top: -8px;
+			}
+		}
+
+		@keyframes driftSpark {
+			0%,
+			100% {
+				transform: translate(0, 0) scale(0.88);
+				opacity: 0.45;
+			}
+			50% {
+				transform: translate(10px, -12px) scale(1.08);
+				opacity: 1;
+			}
+		}
+
+		@keyframes starDrift {
+			0% {
+				transform: translateY(0);
+			}
+			100% {
+				transform: translateY(24px);
+			}
+		}
+
+		@keyframes starDriftSoft {
+			0% {
+				transform: translate3d(0, 0, 0);
+			}
+			100% {
+				transform: translate3d(-18px, 18px, 0);
+			}
+		}
+
 		@media (max-width: 480px) {
 			.ritual-step-header,
-			.tarot-topbar-row,
 			.screen-nav,
 			.screen-nav-actions {
 				flex-direction: column;
@@ -1804,7 +2029,7 @@
 			}
 
 			.tarot-topbar-actions {
-				justify-content: space-between;
+				justify-content: flex-end;
 			}
 
 			.recharge-layout {
@@ -1812,11 +2037,6 @@
 			}
 
 			.auth-panel {
-				width: 100%;
-			}
-
-			.music-toggle {
-				justify-content: space-between;
 				width: 100%;
 			}
 
@@ -1984,13 +2204,10 @@
 				<div class="tarot-topbar-row">
 					<div class="tarot-topbar-main">
 						<strong>占卜界面</strong>
+						<span>神秘塔罗仪式</span>
 						<span class="status-pill" id="tarotUserBadge">未登录</span>
 					</div>
 					<div class="tarot-topbar-actions">
-						<button class="ghost-button music-toggle" id="musicToggleButton" type="button" aria-label="切换氛围背景音">
-							<span class="music-toggle-label" id="musicToggleLabel">开启氛围音</span>
-							<span class="status-pill" id="musicToggleState">静音</span>
-						</button>
 						<button class="ghost-button" id="openAccountButton" type="button">个人账户</button>
 					</div>
 				</div>
@@ -2002,18 +2219,43 @@
 
 			<div class="ritual-step-shell">
 			<div class="ritual-step-view" id="introStepView">
-				<section class="panel panel-body">
-					<div class="ritual-step-header">
-						<div>
-							<div class="section-kicker">Tarot Flow</div>
-							<h2 style="font-size: 36px; margin-top: 6px;">开始占卜</h2>
-							<p>这次流程会在同一张页面里依次切到 Step 0 准备问题、Step 1 切牌、Step 2 抽牌、Step 3 揭牌、Step 4 解读。</p>
+				<section class="panel immersive-hero">
+					<div class="mystic-stage">
+						<div class="mystic-starfield"></div>
+						<div class="mystic-constellation"></div>
+						<div class="mystic-copy">
+							<div class="eyebrow">Tarot Flow · Mobile Ritual</div>
+							<h1>
+									<span class="mystic-title-top">
+										<span class="title-ornament">✨</span>
+										<span>塔罗牌占卜</span>
+									</span>
+									<span class="mystic-title-bottom">
+										<span class="mystic-title-inline">
+											<span>命运牌阵解读</span>
+											<span class="title-ornament trailing">🔮</span>
+										</span>
+										<span class="title-ornament end">✦</span>
+									</span>
+							</h1>
+							<p>今夜的牌阵，会替你照见那些尚未说出口的答案。让问题沉下去，再让牌面慢慢浮上来。</p>
 						</div>
-						<div class="status-pill" id="engineBadge">AI 深度解读</div>
-					</div>
-
-					<div class="actions step-actions-inline" style="margin-top: 18px;">
-						<button class="primary-button" id="setupStartButton" type="button">开始占卜</button>
+						<div class="mystic-orbit" aria-hidden="true">
+								<div class="mystic-orbit-glow"></div>
+								<div class="mystic-orbit-dust"></div>
+							<div class="mystic-card card-left"></div>
+							<div class="mystic-card"></div>
+							<div class="mystic-card card-right"></div>
+						</div>
+						<div class="mystic-invocation">
+							<strong>让占卜慢一点展开。</strong>
+							<span>先把想问的话轻轻写下，再顺着牌阵的节奏一步步往前走。</span>
+							<span>从整理问题，到切牌、抽牌、揭牌，最后再看见属于你的答案。</span>
+						</div>
+						<div class="actions step-actions-inline">
+							<div class="status-pill" id="engineBadge" style="justify-self: start; align-self: center;">AI 深度解读</div>
+							<button class="primary-button" id="setupStartButton" type="button"><span>开始占卜</span></button>
+						</div>
 					</div>
 				</section>
 			</div>
@@ -2177,8 +2419,6 @@
 				</div>
 			</div>
 			</div>
-
-			<div class="footer-note">当前版本支持手机端洗牌、轮盘抽牌、手动揭牌与完整解读。Windows 下运行 start-server.cmd 或 node server.js，然后打开 http://localhost:3000。</div>
 		</div>
 	</div>
 
@@ -2459,9 +2699,6 @@
 		const checkInStatus = document.getElementById('checkInStatus');
 		const rechargeGrid = document.getElementById('rechargeGrid');
 		const accountActivityList = document.getElementById('accountActivityList');
-		const musicToggleButton = document.getElementById('musicToggleButton');
-		const musicToggleLabel = document.getElementById('musicToggleLabel');
-		const musicToggleState = document.getElementById('musicToggleState');
 
 		const authState = {
 			user: null,
@@ -2491,330 +2728,6 @@
 		const ritualState = {
 			current: 'intro'
 		};
-
-		const MUSIC_STORAGE_KEY = 'tarot-ambient-music';
-		const audioState = {
-			enabled: false,
-			context: null,
-			masterGain: null,
-			droneNodes: [],
-			noiseSource: null,
-			chimeTimer: 0,
-			wakeHandlerBound: false
-		};
-
-		function loadMusicPreference() {
-			try {
-				const savedPreference = window.localStorage.getItem(MUSIC_STORAGE_KEY);
-				audioState.enabled = savedPreference === null ? true : savedPreference === '1';
-			} catch {
-				audioState.enabled = true;
-			}
-		}
-
-		function saveMusicPreference() {
-			try {
-				window.localStorage.setItem(MUSIC_STORAGE_KEY, audioState.enabled ? '1' : '0');
-			} catch {
-				return;
-			}
-		}
-
-		function updateMusicToggle() {
-			const playing = audioState.context?.state === 'running';
-			musicToggleButton.classList.toggle('active', audioState.enabled);
-			musicToggleLabel.textContent = audioState.enabled
-				? (playing ? '关闭氛围音' : '唤醒氛围音')
-				: '开启氛围音';
-			musicToggleState.textContent = playing ? '播放中' : (audioState.enabled ? '待唤醒' : '静音');
-		}
-
-		function createNoiseBuffer(audioContext) {
-			const bufferSize = audioContext.sampleRate * 2;
-			const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
-			const data = buffer.getChannelData(0);
-			let previous = 0;
-
-			for (let index = 0; index < bufferSize; index += 1) {
-				const white = Math.random() * 2 - 1;
-				previous = (previous + (0.02 * white)) / 1.02;
-				data[index] = previous * 3.2;
-			}
-
-			return buffer;
-		}
-
-		function triggerAmbientChime() {
-			if (!audioState.context || audioState.context.state !== 'running' || !audioState.masterGain) {
-				return;
-			}
-
-			const now = audioState.context.currentTime;
-			const frequencies = [523.25, 659.25, 783.99, 880];
-			const frequency = frequencies[Math.floor(Math.random() * frequencies.length)];
-			const primary = audioState.context.createOscillator();
-			const harmonic = audioState.context.createOscillator();
-			const gainNode = audioState.context.createGain();
-			const filter = audioState.context.createBiquadFilter();
-
-			primary.type = 'sine';
-			harmonic.type = 'triangle';
-			primary.frequency.setValueAtTime(frequency, now);
-			harmonic.frequency.setValueAtTime(frequency * 1.5, now);
-			filter.type = 'lowpass';
-			filter.frequency.setValueAtTime(2400, now);
-			gainNode.gain.setValueAtTime(0.0001, now);
-			gainNode.gain.exponentialRampToValueAtTime(0.03, now + 0.45);
-			gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 4.8);
-
-			primary.connect(filter);
-			harmonic.connect(filter);
-			filter.connect(gainNode);
-			gainNode.connect(audioState.masterGain);
-
-			primary.start(now);
-			harmonic.start(now);
-			primary.stop(now + 5);
-			harmonic.stop(now + 5);
-		}
-
-		async function stopAmbientMusic() {
-			window.clearInterval(audioState.chimeTimer);
-			audioState.chimeTimer = 0;
-
-			if (!audioState.context) {
-				updateMusicToggle();
-				return;
-			}
-
-			const currentContext = audioState.context;
-			const currentGain = audioState.masterGain;
-			if (currentGain) {
-				const now = currentContext.currentTime;
-				currentGain.gain.cancelScheduledValues(now);
-				currentGain.gain.setValueAtTime(Math.max(currentGain.gain.value, 0.0001), now);
-				currentGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
-			}
-
-			audioState.context = null;
-			audioState.masterGain = null;
-			audioState.droneNodes = [];
-			audioState.noiseSource = null;
-
-			window.setTimeout(async () => {
-				try {
-					await currentContext.close();
-				} catch {
-					return;
-				}
-			}, 950);
-
-			updateMusicToggle();
-		}
-
-		async function startAmbientMusic() {
-			if (audioState.context) {
-				if (audioState.context.state === 'suspended') {
-					await audioState.context.resume();
-				}
-				updateMusicToggle();
-				return true;
-			}
-
-			const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-			if (!AudioContextClass) {
-				musicToggleLabel.textContent = '当前设备不支持音频';
-				musicToggleState.textContent = '不可用';
-				musicToggleButton.disabled = true;
-				return false;
-			}
-
-			const audioContext = new AudioContextClass();
-			const masterGain = audioContext.createGain();
-			masterGain.gain.value = 0.0001;
-			masterGain.connect(audioContext.destination);
-			const lowpass = audioContext.createBiquadFilter();
-			lowpass.type = 'lowpass';
-			lowpass.frequency.value = 900;
-			const noiseGain = audioContext.createGain();
-			noiseGain.gain.value = 0.014;
-			const noiseSource = audioContext.createBufferSource();
-			noiseSource.buffer = createNoiseBuffer(audioContext);
-			noiseSource.loop = true;
-			noiseSource.connect(lowpass);
-			lowpass.connect(noiseGain);
-			noiseGain.connect(masterGain);
-
-			const droneConfigs = [
-				{ frequency: 174.61, type: 'sine', gain: 0.04 },
-				{ frequency: 220, type: 'triangle', gain: 0.024 },
-				{ frequency: 261.63, type: 'sine', gain: 0.014 }
-			];
-
-			const droneNodes = droneConfigs.map((config, index) => {
-				const oscillator = audioContext.createOscillator();
-				const gainNode = audioContext.createGain();
-				const filterNode = audioContext.createBiquadFilter();
-				oscillator.type = config.type;
-				oscillator.frequency.value = config.frequency;
-				filterNode.type = 'lowpass';
-				filterNode.frequency.value = 820 + (index * 120);
-				gainNode.gain.value = config.gain;
-				oscillator.connect(filterNode);
-				filterNode.connect(gainNode);
-				gainNode.connect(masterGain);
-				oscillator.start();
-				return { oscillator, gainNode, filterNode };
-			});
-
-			noiseSource.start();
-			await audioContext.resume();
-			masterGain.gain.exponentialRampToValueAtTime(0.12, audioContext.currentTime + 2.4);
-
-			audioState.context = audioContext;
-			audioState.masterGain = masterGain;
-			audioState.droneNodes = droneNodes;
-			audioState.noiseSource = noiseSource;
-			audioState.chimeTimer = window.setInterval(triggerAmbientChime, 16000);
-			window.setTimeout(triggerAmbientChime, 3200);
-			updateMusicToggle();
-			return true;
-		}
-
-		async function toggleAmbientMusic() {
-			audioState.enabled = !audioState.enabled;
-			saveMusicPreference();
-
-			if (audioState.enabled) {
-				await startAmbientMusic();
-			} else {
-				await stopAmbientMusic();
-			}
-
-			updateMusicToggle();
-		}
-
-		async function wakeAmbientMusicFromGesture() {
-			if (!audioState.enabled) {
-				return;
-			}
-
-			await startAmbientMusic();
-			if (audioState.context?.state === 'running') {
-				document.removeEventListener('pointerdown', wakeAmbientMusicFromGesture, true);
-				document.removeEventListener('touchstart', wakeAmbientMusicFromGesture, true);
-				document.removeEventListener('touchend', wakeAmbientMusicFromGesture, true);
-				document.removeEventListener('click', wakeAmbientMusicFromGesture, true);
-				document.removeEventListener('keydown', wakeAmbientMusicFromGesture, true);
-				audioState.wakeHandlerBound = false;
-			}
-		}
-
-		function bindAmbientWakeHandler() {
-			if (audioState.wakeHandlerBound) {
-				return;
-			}
-			document.addEventListener('pointerdown', wakeAmbientMusicFromGesture, true);
-			document.addEventListener('touchstart', wakeAmbientMusicFromGesture, true);
-			document.addEventListener('touchend', wakeAmbientMusicFromGesture, true);
-			document.addEventListener('click', wakeAmbientMusicFromGesture, true);
-			document.addEventListener('keydown', wakeAmbientMusicFromGesture, true);
-			audioState.wakeHandlerBound = true;
-		}
-
-		function renderScreen() {
-			const viewingTarot = screenState.current === 'tarot';
-			tarotScreen.classList.toggle('hidden', !viewingTarot);
-			accountScreen.classList.toggle('hidden', viewingTarot);
-			tarotUserBadge.textContent = authState.user
-				? `${authState.user.username} · ${authState.user.credits || 0} 积分`
-				: '未登录';
-			accountScreenBadge.textContent = authState.user ? '已登录' : '未登录';
-			openAccountButton.textContent = authState.user ? '个人账户' : '登录 / 注册';
-		}
-
-		function setScreen(nextScreen) {
-			screenState.current = nextScreen;
-			renderAuth();
-			return true;
-		}
-
-		function canEnterRitualStep(stepId) {
-			switch (stepId) {
-				case 'intro':
-					return true;
-				case 'setup':
-				case 'shuffle':
-					return true;
-				case 'draw':
-					return state.prepared;
-				case 'reveal':
-					return isRevealReady();
-				case 'reading':
-					return Boolean(state.apiMarkdown);
-				default:
-					return false;
-			}
-		}
-
-		function getRitualStepIndex(stepId) {
-			return ritualSteps.findIndex((step) => step.id === stepId);
-		}
-
-		function renderRitualStep() {
-			const viewMap = {
-				intro: introStepView,
-				setup: setupStepView,
-				shuffle: shuffleStepView,
-				draw: drawStepView,
-				reveal: revealStepView,
-				reading: readingStepView
-			};
-
-			Object.entries(viewMap).forEach(([stepId, element]) => {
-				element.classList.toggle('hidden', ritualState.current !== stepId);
-			});
-
-			const currentIndex = ritualState.current === 'intro' ? -1 : getRitualStepIndex(ritualState.current);
-			ritualProgressNav.innerHTML = ritualSteps.map((step, index) => {
-				const isCurrent = step.id === ritualState.current;
-				const isUnlocked = canEnterRitualStep(step.id);
-				const isDone = isUnlocked && index < currentIndex;
-				const statusClass = isCurrent ? 'active' : (isDone ? 'done' : (isUnlocked ? 'ready' : 'locked'));
-				return `
-					<div class="ritual-progress-button ${statusClass}">
-						<strong>${index}. ${step.title}</strong>
-						<span>${step.desc}</span>
-					</div>
-				`;
-			}).join('');
-		}
-
-		function setRitualStep(nextStep, options = {}) {
-			if (!options.force && !canEnterRitualStep(nextStep)) {
-				return false;
-			}
-
-			ritualState.current = nextStep;
-			renderRitualStep();
-			return true;
-		}
-
-		function updateSetupStepUi() {
-			const hasQuestion = questionInput.value.trim().length > 0;
-			setupNextButton.disabled = !hasQuestion;
-		}
-
-		function setAuthMessage(message, type = 'success') {
-			authMessage.textContent = message;
-			authMessage.className = `auth-message ${type}`;
-			authMessage.classList.toggle('hidden', !message);
-		}
-
-		function clearAuthMessage() {
-			authMessage.textContent = '';
-			authMessage.className = 'auth-message hidden';
-		}
 
 		function getAuthActionLabel(target) {
 			if (!target) {
@@ -4152,10 +4065,6 @@
 				resetSession({ nextStep: 'setup' });
 			});
 
-			musicToggleButton.addEventListener('click', async () => {
-				await toggleAmbientMusic();
-			});
-
 			authToggleButton.addEventListener('click', () => {
 				if (screenState.current === 'account') {
 					authState.open = true;
@@ -4179,7 +4088,7 @@
 					return;
 				}
 
-				const guardedTarget = event.target.closest('[data-auth-required], button, textarea, input');
+				const guardedTarget = event.target.closest('[data-auth-required]');
 				if (!guardedTarget) {
 					return;
 				}
@@ -4318,9 +4227,6 @@
 		}
 
 		function init() {
-			loadMusicPreference();
-			updateMusicToggle();
-			bindAmbientWakeHandler();
 			renderAuth();
 			renderAccountDashboard();
 			renderAdminDashboard();
